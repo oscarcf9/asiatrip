@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -10,24 +11,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#08080d;--bg2:#0e0e16;--bg3:#14141f;--card:#12121c;--card2:#1a1a28;
---korea:#e74c3c;--korea-glow:#e74c3c44;--thai:#f39c12;--thai-glow:#f39c1244;
---text:#e8e6e3;--text2:#a09d98;--text3:#6b6863;--accent:#00d4aa;
---border:#1e1e2e;--border2:#2a2a3a;
-}
+:root{--bg:#08080d;--bg2:#0e0e16;--card:#12121c;--card2:#1a1a28;--korea:#e74c3c;--korea-glow:#e74c3c44;--thai:#f39c12;--thai-glow:#f39c1244;--text:#e8e6e3;--text2:#a09d98;--text3:#6b6863;--accent:#00d4aa;--border:#1e1e2e;--border2:#2a2a3a}
 html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#2a2a3a #08080d}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
 h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:700;line-height:1.2}
-a{color:var(--accent);text-decoration:none;transition:all .3s}
-a:hover{opacity:.8}
+a{color:var(--accent);text-decoration:none;transition:all .3s}a:hover{opacity:.8}
 .mono{font-family:'JetBrains Mono',monospace}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,8,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;gap:1.5rem;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,8,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;gap:1.5rem;overflow-x:auto;white-space:nowrap}
 nav a{color:var(--text2);font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:.4rem .8rem;border-radius:6px;transition:all .3s}
 nav a:hover,nav a.active{color:var(--text);background:var(--card2)}
 nav .logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);font-weight:700;margin-right:auto;flex-shrink:0}
-nav .kr{color:var(--korea)}
-nav .th{color:var(--thai)}
+nav .kr{color:var(--korea)}nav .th{color:var(--thai)}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 30% 40%,var(--korea-glow),transparent),radial-gradient(ellipse 600px 400px at 70% 60%,var(--thai-glow),transparent),radial-gradient(ellipse 800px 600px at 50% 50%,rgba(0,212,170,.05),transparent);pointer-events:none}
 .hero h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;margin-bottom:1rem}
@@ -43,8 +37,8 @@ section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
 .section-title{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:.5rem}
 .section-sub{color:var(--text2);font-size:1rem;margin-bottom:3rem}
 .divider{width:60px;height:3px;border-radius:2px;margin:1rem 0 2rem}
-.divider.kr{background:var(--korea)}.divider.th{background:var(--thai)}.divider.mixed{background:linear-gradient(90deg,var(--korea),var(--thai))}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .4s;position:relative;overflow:hidden}
+.divider.mixed{background:linear-gradient(90deg,var(--korea),var(--thai))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .4s}
 .card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .card.kr-border{border-left:3px solid var(--korea)}.card.th-border{border-left:3px solid var(--thai)}
 .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
@@ -67,29 +61,28 @@ section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
 .tab-content{display:none}.tab-content.active{display:block;animation:fadeUp .4s ease}
 .timeline{position:relative;padding-left:2rem}
 .timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
-.timeline-day{margin-bottom:3rem;position:relative}
-.timeline-day::before{content:'';position:absolute;left:-2rem;top:.5rem;width:18px;height:18px;border-radius:50%;border:3px solid var(--border);background:var(--bg)}
-.timeline-day.kr::before{border-color:var(--korea);box-shadow:0 0 12px var(--korea-glow)}
-.timeline-day.th::before{border-color:var(--thai);box-shadow:0 0 12px var(--thai-glow)}
-.timeline-day h3{font-size:1.3rem;margin-bottom:.3rem}
-.timeline-day .date{color:var(--text3);font-size:.85rem;margin-bottom:1rem}
-.activity{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:.8rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:start}
-.activity .time{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);white-space:nowrap;padding-top:.1rem}
-.activity .info h4{font-size:.95rem;font-weight:600;margin-bottom:.3rem}
-.activity .info p{color:var(--text2);font-size:.85rem}
-.activity .info .tip{color:var(--thai);font-size:.8rem;font-style:italic;margin-top:.3rem}
-.activity .cost{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text2);white-space:nowrap}
+.tl{margin-bottom:3rem;position:relative}
+.tl::before{content:'';position:absolute;left:-2rem;top:.5rem;width:18px;height:18px;border-radius:50%;border:3px solid var(--border);background:var(--bg)}
+.tl.kr::before{border-color:var(--korea);box-shadow:0 0 12px var(--korea-glow)}
+.tl.th::before{border-color:var(--thai);box-shadow:0 0 12px var(--thai-glow)}
+.tl h3{font-size:1.3rem;margin-bottom:.3rem}
+.tl .date{color:var(--text3);font-size:.85rem;margin-bottom:1rem}
+.act{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:.8rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:start}
+.act .time{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);white-space:nowrap;padding-top:.1rem}
+.act .info h4{font-size:.95rem;font-weight:600;margin-bottom:.3rem}
+.act .info p{color:var(--text2);font-size:.85rem}
+.act .info .tip{color:var(--thai);font-size:.8rem;font-style:italic;margin-top:.3rem}
+.act .cost{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text2);white-space:nowrap}
 .budget-table{width:100%;border-collapse:collapse;font-size:.9rem}
 .budget-table th{background:var(--card2);padding:1rem;text-align:left;font-weight:600;border-bottom:2px solid var(--border2);position:sticky;top:64px;z-index:5}
-.budget-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+.budget-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border)}
 .budget-table tr:hover td{background:var(--card)}
 .budget-table .total-row{background:var(--card2);font-weight:700}
 .budget-table .total-row td{border-top:2px solid var(--border2)}
 .budget-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--border)}
 .collapsible{border:1px solid var(--border);border-radius:12px;margin-bottom:.8rem;overflow:hidden}
 .collapsible-header{padding:1rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--card);transition:background .3s;user-select:none}
-.collapsible-header:hover{background:var(--card2)}
-.collapsible-header h4{font-size:.95rem;font-weight:600}
+.collapsible-header:hover{background:var(--card2)}.collapsible-header h4{font-size:.95rem;font-weight:600}
 .collapsible-header .icon{transition:transform .3s;color:var(--text3)}
 .collapsible.open .collapsible-header .icon{transform:rotate(180deg)}
 .collapsible-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
@@ -97,462 +90,323 @@ section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
 .collapsible-body .inner{padding:1.2rem 1.5rem;color:var(--text2);font-size:.9rem;line-height:1.8}
 .gem{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;position:relative;overflow:hidden}
 .gem::before{content:'💎';position:absolute;top:1rem;right:1rem;font-size:1.2rem;opacity:.5}
-.gem h4{font-size:1rem;margin-bottom:.5rem}
-.gem p{color:var(--text2);font-size:.85rem}
+.gem h4{font-size:1rem;margin-bottom:.5rem}.gem p{color:var(--text2);font-size:.85rem}
 #map{height:500px;border-radius:16px;border:1px solid var(--border);z-index:1}
 .map-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;justify-content:center}
 .map-legend span{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--text2)}
 .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.visa-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem}
-.visa-card .passport{font-size:2rem;margin-bottom:1rem}
-.visa-card h4{margin-bottom:.5rem}
+.visa-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.visa-card .passport{font-size:2rem;margin-bottom:1rem}.visa-card h4{margin-bottom:.5rem}
 .visa-card .status{display:inline-block;padding:.3rem .8rem;border-radius:6px;font-size:.8rem;font-weight:600;margin-bottom:1rem}
 .visa-card .status.ok{background:#16a34a22;color:#22c55e;border:1px solid #16a34a44}
 .visa-card .status.required{background:#ef444422;color:#ef4444;border:1px solid #ef444444}
-.essential-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
-.essential-item .emoji{font-size:1.5rem;margin-bottom:.8rem}
-.essential-item h4{font-size:.95rem;margin-bottom:.5rem}
-.essential-item p{color:var(--text2);font-size:.85rem}
+.ess{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+.ess .emoji{font-size:1.5rem;margin-bottom:.8rem}.ess h4{font-size:.95rem;margin-bottom:.5rem}.ess p{color:var(--text2);font-size:.85rem}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.animate{opacity:0;transform:translateY(30px);transition:all .6s ease}
-.animate.visible{opacity:1;transform:translateY(0)}
+.animate{opacity:0;transform:translateY(30px);transition:all .6s ease}.animate.visible{opacity:1;transform:translateY(0)}
 footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text3);font-size:.85rem}
-@media(max-width:768px){
-nav{padding:.5rem 1rem;gap:.5rem}section{padding:3rem 1rem}.grid-2,.grid-3{grid-template-columns:1fr}
-.activity{grid-template-columns:1fr;gap:.5rem}.activity .time{font-size:.75rem}.hero h1{font-size:2rem}
-.hero-meta{gap:.5rem}.tabs{gap:.3rem}.flight-card .route{flex-direction:column;align-items:flex-start}#map{height:350px}
-}
+@media(max-width:768px){nav{padding:.5rem 1rem;gap:.5rem}section{padding:3rem 1rem}.grid-2,.grid-3{grid-template-columns:1fr}.act{grid-template-columns:1fr;gap:.5rem}.hero h1{font-size:2rem}.hero-meta{gap:.5rem}#map{height:350px}}
 </style>
 </head>
 <body>
-<nav>
-<span class="logo">🌏 <span class="kr">KR</span>+<span class="th">TH</span></span>
-<a href="#vuelos">Vuelos</a><a href="#itinerario">Itinerario</a><a href="#ciudades">Ciudades</a><a href="#mapa">Mapa</a><a href="#presupuesto">Presupuesto</a><a href="#visa">Visa</a><a href="#esenciales">Esenciales</a><a href="#gems">Hidden Gems</a>
-</nav>
+<nav><span class="logo">🌏 <span class="kr">KR</span>+<span class="th">TH</span></span><a href="#vuelos">Vuelos</a><a href="#itinerario">Itinerario</a><a href="#ciudades">Ciudades</a><a href="#mapa">Mapa</a><a href="#presupuesto">Presupuesto</a><a href="#visa">Visa</a><a href="#esenciales">Esenciales</a><a href="#gems">Hidden Gems</a></nav>
 
 <section class="hero" id="top">
 <h1><span class="kr">Korea</span> + <span class="th">Tailandia</span></h1>
-<p class="hero-sub">20 días explorando Asia · Septiembre 2026 · 2 viajeros · De Miami al otro lado del mundo</p>
-<div class="hero-meta">
-<span class="tag">📅 Sep 10 — Sep 30, 2026</span><span class="tag">👥 2 personas</span><span class="tag">🛂 Pasaporte USA + Cuba</span><span class="tag">✈️ Desde MIA</span>
-</div>
-<div class="hero-route">
-<span><span class="dot" style="background:var(--korea)"></span> Seúl</span><span class="arrow">→</span>
-<span><span class="dot" style="background:#ff6b6b"></span> Daegu</span><span class="arrow">→</span>
-<span><span class="dot" style="background:#ffa07a"></span> Busan</span><span class="arrow">✈️</span>
-<span><span class="dot" style="background:var(--thai)"></span> Bangkok</span><span class="arrow">→</span>
-<span><span class="dot" style="background:#3498db"></span> Chiang Mai</span><span class="arrow">→</span>
-<span><span class="dot" style="background:#00d4aa"></span> Krabi</span><span class="arrow">→</span>
-<span><span class="dot" style="background:var(--thai)"></span> Bangkok</span>
-</div>
+<p class="hero-sub">16 días explorando Asia · Septiembre 2026 · 2 viajeros · De Miami al otro lado del mundo</p>
+<div class="hero-meta"><span class="tag">📅 Sep 10 — Sep 26, 2026</span><span class="tag">👥 2 personas</span><span class="tag">🛂 USA + Cuba</span><span class="tag">✈️ Desde MIA</span></div>
+<div class="hero-route"><span><span class="dot" style="background:var(--korea)"></span> Seúl</span><span class="arrow">→</span><span><span class="dot" style="background:#ffa07a"></span> Busan</span><span class="arrow">✈️</span><span><span class="dot" style="background:var(--thai)"></span> Bangkok</span><span class="arrow">→</span><span><span class="dot" style="background:#3498db"></span> Chiang Mai</span><span class="arrow">→</span><span><span class="dot" style="background:#00d4aa"></span> Krabi</span><span class="arrow">→</span><span><span class="dot" style="background:var(--thai)"></span> BKK ✈️ MIA</span></div>
 </section>
 
-<!-- VUELOS -->
 <section id="vuelos">
-<h2 class="section-title">✈️ Vuelos</h2>
-<p class="section-sub">Precios investigados en feb 2026 · Solo ida · Por persona</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">✈️ Vuelos</h2><p class="section-sub">Precios feb 2026 · Solo ida · Por persona</p><div class="divider mixed"></div>
 
-<div class="flight-card animate">
-<div class="route"><span class="city">Miami (MIA)</span><span class="plane">✈️ →</span><span class="city">Seúl (ICN)</span></div>
-<div class="price-range kr">$450 — $650 <small style="font-size:.7rem;color:var(--text2)">solo ida / persona</small></div>
-<div class="details"><strong>Aerolíneas:</strong> Delta, American Airlines, Air Canada, Korean Air, United, Turkish Airlines<br><strong>Duración:</strong> 18-24h (con 1 escala) · No hay vuelos directos desde MIA<br><strong>Escalas comunes:</strong> Atlanta (ATL), Dallas (DFW), Toronto (YYZ), Los Ángeles (LAX), Estambul (IST)<br><strong>Mejor precio:</strong> Septiembre es el mes más barato para esta ruta. Reservar 6-8 semanas antes.<br><strong>Tip:</strong> Comprar en jueves. Delta y Air Canada suelen tener los mejores precios.</div>
-<div class="links"><a href="https://www.google.com/travel/flights?q=MIA+ICN+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.kayak.com/flights/MIA-ICN/2026-09-10?sort=bestflight_a" target="_blank">Kayak</a><a href="https://www.skyscanner.com/transport/flights/mia/icn/" target="_blank">Skyscanner</a><a href="https://www.trip.com/flights/miami-to-seoul/tickets-mia-icn/" target="_blank">Trip.com</a></div>
-</div>
+<div class="flight-card animate"><div class="route"><span class="city">Miami (MIA)</span><span class="plane">✈️ →</span><span class="city">Seúl (ICN)</span></div>
+<div class="price-range kr">$450 — $650 <small style="font-size:.7rem;color:var(--text2)">pp</small></div>
+<div class="details"><strong>Aerolíneas:</strong> Delta, American, Air Canada, Korean Air, Turkish · 18-24h (1 escala)<br><strong>Tip:</strong> Sep = mes más barato. Reservar 6-8 sem antes. Comprar jueves. Salir mar/mié.</div>
+<div class="links"><a href="https://www.google.com/travel/flights?q=MIA+ICN+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.kayak.com/flights/MIA-ICN/2026-09-10" target="_blank">Kayak</a><a href="https://www.skyscanner.com/transport/flights/mia/icn/" target="_blank">Skyscanner</a></div></div>
 
-<div class="flight-card animate">
-<div class="route"><span class="city">Busan (PUS)</span><span class="plane">✈️ →</span><span class="city">Bangkok (BKK)</span></div>
-<div class="price-range th">$80 — $200 <small style="font-size:.7rem;color:var(--text2)">solo ida / persona</small></div>
-<div class="details"><strong>Aerolíneas directas:</strong> Jeju Air, Air Busan, Jin Air, VietJet Air (~5.5h directo)<br><strong>Con escala vía Seúl:</strong> Korean Air, Asiana (~7-9h) — $150-300<br><strong>Mejor opción:</strong> Vuelo DIRECTO Busan → Bangkok con Jeju Air o Air Busan (~$80-150). ¡No hace falta volver a Seúl!<br><strong>Tip:</strong> Las low-cost coreanas vuelan directo y son excelentes. Equipaje de mano puede ser limitado.</div>
-<div class="links"><a href="https://www.google.com/travel/flights?q=PUS+BKK+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.kayak.com/flights/PUS-BKK/2026-09-18?sort=price_a" target="_blank">Kayak</a><a href="https://www.jejuair.net/en/" target="_blank">Jeju Air</a><a href="https://www.airbusan.com/content/individual/en" target="_blank">Air Busan</a></div>
-</div>
+<div class="flight-card animate"><div class="route"><span class="city">Busan (PUS)</span><span class="plane">✈️ →</span><span class="city">Bangkok (BKK)</span></div>
+<div class="price-range th">$80 — $200 <small style="font-size:.7rem;color:var(--text2)">pp</small></div>
+<div class="details"><strong>Directos:</strong> Jeju Air, Air Busan, Jin Air (~5.5h) · Vía Seúl ~$150-300<br><strong>Tip:</strong> DIRECTO ~$80-150. Low-cost coreanas excelentes. Equipaje limitado.</div>
+<div class="links"><a href="https://www.google.com/travel/flights?q=PUS+BKK+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.jejuair.net/en/" target="_blank">Jeju Air</a><a href="https://www.airbusan.com/content/individual/en" target="_blank">Air Busan</a></div></div>
 
-<div class="flight-card animate">
-<div class="route"><span class="city">Bangkok (BKK)</span><span class="plane">✈️ →</span><span class="city">Miami (MIA)</span></div>
-<div class="price-range th">$470 — $700 <small style="font-size:.7rem;color:var(--text2)">solo ida / persona</small></div>
-<div class="details"><strong>Aerolíneas:</strong> Delta/Korean Air, Turkish Airlines, Qatar Airways, Japan Airlines, Air Canada<br><strong>Duración:</strong> 21-28h (con 1-2 escalas) · No hay directos<br><strong>Escalas comunes:</strong> Seúl (ICN), Tokio (NRT), Doha (DOH), Estambul (IST)<br><strong>Tip:</strong> Turkish Airlines vía Estambul tiene excelente servicio y buen precio. Qatar Airways vía Doha también.</div>
-<div class="links"><a href="https://www.google.com/travel/flights?q=BKK+MIA+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.kayak.com/flights/BKK-MIA/2026-09-28?sort=price_a" target="_blank">Kayak</a><a href="https://www.skyscanner.com/transport/flights/bkk/mia/" target="_blank">Skyscanner</a><a href="https://www.trip.com/flights/bangkok-to-miami/tickets-bkk-mia/" target="_blank">Trip.com</a></div>
-</div>
+<div class="flight-card animate"><div class="route"><span class="city">Bangkok (BKK)</span><span class="plane">✈️ →</span><span class="city">Miami (MIA)</span></div>
+<div class="price-range th">$470 — $700 <small style="font-size:.7rem;color:var(--text2)">pp</small></div>
+<div class="details"><strong>Aerolíneas:</strong> Turkish, Qatar Airways, Delta/Korean Air, JAL · 21-28h (1-2 escalas)<br><strong>Tip:</strong> Turkish vía Estambul o Qatar vía Doha = mejor servicio + buen precio.</div>
+<div class="links"><a href="https://www.google.com/travel/flights?q=BKK+MIA+sep+2026+one+way" target="_blank">Google Flights</a><a href="https://www.kayak.com/flights/BKK-MIA/2026-09-25" target="_blank">Kayak</a><a href="https://www.skyscanner.com/transport/flights/bkk/mia/" target="_blank">Skyscanner</a></div></div>
 
-<h3 style="margin-top:3rem;margin-bottom:1.5rem">🚄 Transporte Terrestre — Korea</h3>
-<div class="grid-2">
-<div class="card kr-border animate"><h4>KTX Seúl → Daegu</h4><p class="mono" style="color:var(--korea);font-size:1.2rem;margin:.5rem 0">~₩23,700 (~$17 USD)</p><p style="color:var(--text2);font-size:.9rem">⏱️ 1h 40min · Tren bala KTX<br>📍 Seoul Station → Dongdaegu Station<br>🎫 Reservar en <a href="https://www.letskorail.com" target="_blank">letskorail.com</a><br>💡 Comprar 1-2 días antes. Hay trenes cada 30min.</p></div>
-<div class="card kr-border animate"><h4>KTX Daegu → Busan</h4><p class="mono" style="color:var(--korea);font-size:1.2rem;margin:.5rem 0">~₩12,500 (~$9 USD)</p><p style="color:var(--text2);font-size:.9rem">⏱️ 45min · Tren bala KTX<br>📍 Dongdaegu Station → Busan Station<br>🎫 <a href="https://www.letskorail.com" target="_blank">letskorail.com</a><br>💡 Trayecto corto y barato.</p></div>
-</div>
-
-<h3 style="margin-top:2rem;margin-bottom:1.5rem">✈️ Vuelos Internos — Tailandia</h3>
-<div class="grid-2">
-<div class="card th-border animate"><h4>Bangkok → Chiang Mai</h4><p class="mono" style="color:var(--thai);font-size:1.2rem;margin:.5rem 0">$25 — $60 USD</p><p style="color:var(--text2);font-size:.9rem">⏱️ 1h 15min directo · AirAsia, Nok Air, Thai Lion Air<br>📍 DMK para low-cost · Reservar 3-4 semanas antes.</p></div>
-<div class="card th-border animate"><h4>Chiang Mai → Krabi</h4><p class="mono" style="color:var(--thai);font-size:1.2rem;margin:.5rem 0">$35 — $80 USD</p><p style="color:var(--text2);font-size:.9rem">⏱️ 2h directo o 3-4h vía BKK<br>✈️ AirAsia directo (estacional), o conexión Bangkok.</p></div>
-<div class="card th-border animate"><h4>Krabi → Bangkok</h4><p class="mono" style="color:var(--thai);font-size:1.2rem;margin:.5rem 0">$25 — $50 USD</p><p style="color:var(--text2);font-size:.9rem">⏱️ 1h 20min directo · AirAsia, Thai Lion Air<br>💡 Vuelos frecuentes y baratos. Taxi Ao Nang→aeropuerto ~$9.</p></div>
+<h3 style="margin-top:3rem;margin-bottom:1.5rem">🚄 Tren Korea · ✈️ Vuelos Internos Thai</h3>
+<div class="grid-3">
+<div class="card kr-border animate"><h4>🚄 KTX Seúl → Busan</h4><p class="mono" style="color:var(--korea);font-size:1.2rem;margin:.5rem 0">~$43 USD</p><p style="color:var(--text2);font-size:.9rem">2h 30min directo · <a href="https://www.letskorail.com" target="_blank">letskorail.com</a><br>💡 Trenes frecuentes. Economy excelente.</p></div>
+<div class="card th-border animate"><h4>✈️ BKK → Chiang Mai</h4><p class="mono" style="color:var(--thai);font-size:1.2rem;margin:.5rem 0">$25 — $60</p><p style="color:var(--text2);font-size:.9rem">1h 15min · AirAsia desde DMK</p></div>
+<div class="card th-border animate"><h4>✈️ CM → Krabi</h4><p class="mono" style="color:var(--thai);font-size:1.2rem;margin:.5rem 0">$35 — $80</p><p style="color:var(--text2);font-size:.9rem">2h directo o vía BKK</p></div>
 </div>
 </section>
 
-<!-- ITINERARIO -->
 <section id="itinerario">
-<h2 class="section-title">🗓️ Itinerario Día por Día</h2>
-<p class="section-sub">20 días completos con horarios, costos y tips insider</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">🗓️ Itinerario Día por Día</h2><p class="section-sub">16 días · Horarios, costos y tips · Por persona</p><div class="divider mixed"></div>
 <div class="timeline">
 
-<div class="timeline-day kr"><h3>Día 1 · Seúl</h3><div class="date">Mié 10 Sep — Llegada</div>
-<div class="activity"><span class="time">~15:00</span><div class="info"><h4>✈️ Llegada a Incheon (ICN)</h4><p>Inmigración, T-Money card en 7-Eleven (₩4,000 + cargar ₩30,000). AREX a Seoul Station (₩9,500, 43min).</p></div><div class="cost">~$30</div></div>
-<div class="activity"><span class="time">17:00</span><div class="info"><h4>🏨 Check-in — Myeongdong/Jongno</h4><p>Hotel o apartamento. Zona céntrica, metro líneas 1-4. $40-70/noche pp.</p><p class="tip">💡 Agoda para hoteles, Airbnb para apartamentos. Filtrar "entire place".</p></div><div class="cost">$50/n pp</div></div>
-<div class="activity"><span class="time">18:30</span><div class="info"><h4>🍜 Gwangjang Market — Cena</h4><p>Mercado más antiguo de Seúl. Mayak Gimbap (₩3K), Bindaetteok (₩4K), Tteokbokki (₩3K).</p><p class="tip">💡 Ir después de las 6PM. La fila te guía al mejor stall.</p></div><div class="cost">~$8</div></div>
-<div class="activity"><span class="time">20:30</span><div class="info"><h4>🌃 Cheonggyecheon Stream</h4><p>Arroyo urbano iluminado de 11km. Caminar desde Gwangjang hacia el oeste. Gratis.</p></div><div class="cost">Gratis</div></div>
+<div class="tl kr"><h3>Día 1 · Seúl</h3><div class="date">Mié 10 Sep — Llegada</div>
+<div class="act"><span class="time">~15:00</span><div class="info"><h4>✈️ Llegada Incheon (ICN)</h4><p>T-Money card en 7-Eleven (₩4K + cargar ₩30K). AREX a Seoul Station (₩9,500, 43min).</p></div><div class="cost">~$30</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>🏨 Check-in Myeongdong/Jongno</h4><p>Hotel o apartamento céntrico. Metro líneas 1-4. $40-70/noche pp.</p><p class="tip">💡 Agoda para hoteles, Airbnb para apartamentos.</p></div><div class="cost">$50/n</div></div>
+<div class="act"><span class="time">18:30</span><div class="info"><h4>🍜 Gwangjang Market</h4><p>Mercado más antiguo. Mayak Gimbap (₩3K), Bindaetteok (₩4K), Tteokbokki.</p><p class="tip">💡 Ir después de 6PM. La fila te guía al mejor stall.</p></div><div class="cost">~$8</div></div>
+<div class="act"><span class="time">20:30</span><div class="info"><h4>🌃 Cheonggyecheon Stream</h4><p>Arroyo urbano iluminado 11km. Gratis y hermoso de noche.</p></div><div class="cost">Gratis</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 2 · Seúl</h3><div class="date">Jue 11 Sep — Palacios & Tradición</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>👘 Hanbok + Gyeongbokgung Palace</h4><p>Rentar hanbok (~₩15-20K, 4h). Con hanbok, entrada al palacio GRATIS. Cambio de guardia 10:00 y 14:00.</p><p class="tip">💡 Llegar ANTES de 9AM. Elegir trajes elegantes para mejores fotos.</p></div><div class="cost">~$12</div></div>
-<div class="activity"><span class="time">10:30</span><div class="info"><h4>🏘️ Bukchon Hanok Village</h4><p>Callejones con casas tradicionales. 8 viewpoints principales. Respetar silencio — barrio residencial.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">12:00</span><div class="info"><h4>☕ Ikseon-dong Hanok Alley</h4><p>Barrio hipster en hanoks: cafés, vintage, restaurantes. Bibimbap ~₩10-15K.</p></div><div class="cost">~$10</div></div>
-<div class="activity"><span class="time">14:00</span><div class="info"><h4>🛕 Jogyesa Temple</h4><p>Templo zen principal. Gratis. Linternas coloridas. Tranquilo.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">15:30</span><div class="info"><h4>🗼 N Seoul Tower + Teleférico</h4><p>Teleférico Namsan (₩11K RT). Observatorio (₩16K). Vista 360° al atardecer.</p><p class="tip">💡 Ir 1h antes del sunset (~17:30 en septiembre).</p></div><div class="cost">~$20</div></div>
-<div class="activity"><span class="time">19:00</span><div class="info"><h4>🍖 Myeongdong Street Food</h4><p>Hotteok (₩2K), Egg bread (₩2K), Tornado potato (₩4K), Korean fried chicken (₩5K).</p></div><div class="cost">~$8</div></div>
+<div class="tl kr"><h3>Día 2 · Seúl</h3><div class="date">Jue 11 Sep — Palacios & Tradición</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>👘 Hanbok + Gyeongbokgung</h4><p>Rentar hanbok (~₩15-20K). Con hanbok = entrada GRATIS. Cambio de guardia 10:00/14:00.</p><p class="tip">💡 Llegar ANTES de 9AM. Trajes elegantes = mejores fotos.</p></div><div class="cost">~$12</div></div>
+<div class="act"><span class="time">10:30</span><div class="info"><h4>🏘️ Bukchon Hanok Village</h4><p>Casas tradicionales. 8 viewpoints. Ir antes de 11AM.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">12:00</span><div class="info"><h4>☕ Ikseon-dong Hanok Alley</h4><p>Barrio hipster en hanoks. Cafés, vintage, bibimbap ~₩10-15K.</p></div><div class="cost">~$10</div></div>
+<div class="act"><span class="time">14:00</span><div class="info"><h4>🛕 Jogyesa Temple</h4><p>Templo zen principal. Gratis. Linternas coloridas.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">15:30</span><div class="info"><h4>🗼 N Seoul Tower + Teleférico</h4><p>Teleférico ₩11K RT. Observatorio ₩16K. Vista 360°.</p><p class="tip">💡 Ir 1h antes del sunset (~17:30 en septiembre).</p></div><div class="cost">~$20</div></div>
+<div class="act"><span class="time">19:00</span><div class="info"><h4>🍖 Myeongdong Street Food</h4><p>Hotteok, Egg bread, Tornado potato, Korean fried chicken.</p></div><div class="cost">~$8</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 3 · Seúl</h3><div class="date">Vie 12 Sep — DMZ + Vida Nocturna</div>
-<div class="activity"><span class="time">07:00</span><div class="info"><h4>🪖 DMZ Tour</h4><p>Tour guiado: JSA, túnel de infiltración, observatorio Dora. Reservar por Klook/Viator ($45-80).</p><p class="tip">💡 REQUIERE pasaporte USA. No jeans rotos. JSA Tour ~$70-80 es el más completo.</p></div><div class="cost">~$70</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🌿 Café en Euljiro</h4><p>Barrio industrial → zona hipster. Bares ocultos detrás de talleres. Café Onion es icónico.</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">18:00</span><div class="info"><h4>🍜 Korean BBQ en Hongdae</h4><p>Samgyeopsal para 2: ₩25-35K total. Buscar restaurantes con humo — señal de autenticidad.</p></div><div class="cost">~$12</div></div>
-<div class="activity"><span class="time">20:30</span><div class="info"><h4>🎵 Hongdae — Vida Nocturna</h4><p>Artistas callejeros, clubs, noraebang (~₩15K/h). Viernes explota.</p><p class="tip">💡 Noraebang (karaoke privado) es OBLIGATORIO.</p></div><div class="cost">~$15</div></div>
+<div class="tl kr"><h3>Día 3 · Seúl</h3><div class="date">Vie 12 Sep — DMZ + Vida Nocturna</div>
+<div class="act"><span class="time">07:00</span><div class="info"><h4>🪖 DMZ Tour</h4><p>JSA, túnel de infiltración, observatorio Dora. Klook/Viator $45-80.</p><p class="tip">💡 REQUIERE pasaporte USA. No jeans rotos. JSA Tour ~$70 más completo.</p></div><div class="cost">~$70</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🌿 Café Euljiro 💎</h4><p>Barrio industrial → hipster. Bares ocultos. Café Onion icónico.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">18:00</span><div class="info"><h4>🍜 Korean BBQ Hongdae</h4><p>Samgyeopsal para 2: ₩25-35K. Buscar humo = auténtico.</p></div><div class="cost">~$12</div></div>
+<div class="act"><span class="time">20:30</span><div class="info"><h4>🎵 Hongdae Nightlife</h4><p>Artistas callejeros, clubs, noraebang (~₩15K/h).</p><p class="tip">💡 Viernes explota. Noraebang = OBLIGATORIO.</p></div><div class="cost">~$15</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 4 · Seúl → Daegu</h3><div class="date">Sáb 13 Sep — Tren bala</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>🌄 Inwangsan Mountain Trail 💎</h4><p>Caminata por muralla antigua. Vista panorámica secreta. 1.5h. Pocos turistas.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">10:30</span><div class="info"><h4>☕ Café en Seongsu-dong</h4><p>El "Brooklyn de Seúl". Brunch y cafés de especialidad.</p></div><div class="cost">~$8</div></div>
-<div class="activity"><span class="time">12:30</span><div class="info"><h4>🚄 KTX Seúl → Daegu</h4><p>Seoul Station → Dongdaegu. 1h 40min. Dosirak en la estación (~₩7K).</p></div><div class="cost">~$17</div></div>
-<div class="activity"><span class="time">14:30</span><div class="info"><h4>🏨 Check-in Daegu — Dongseongno</h4><p>Barrio comercial, cerca de metro. $35-55/noche pp.</p></div><div class="cost">$40/n pp</div></div>
-<div class="activity"><span class="time">16:00</span><div class="info"><h4>🚡 Apsan Cable Car</h4><p>Vista panorámica de toda Daegu. ₩9,000 ida y vuelta.</p></div><div class="cost">~$7</div></div>
-<div class="activity"><span class="time">18:30</span><div class="info"><h4>🌙 Seomun Night Market</h4><p>Flat dumplings, Tteokbokki, Hotdog coreano. Todo ₩2-5K.</p><p class="tip">💡 Abre 19:00-23:30. Puestos de comida en sección exterior.</p></div><div class="cost">~$8</div></div>
+<div class="tl kr"><h3>Día 4 · Seúl → Busan</h3><div class="date">Sáb 13 Sep — Tren bala a la costa</div>
+<div class="act"><span class="time">07:30</span><div class="info"><h4>🌄 Inwangsan Trail 💎</h4><p>Muralla antigua. Vista secreta del skyline. 1.5h. Pocos turistas.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">10:00</span><div class="info"><h4>☕ Seongsu-dong</h4><p>"Brooklyn de Seúl". Brunch y cafés de especialidad.</p></div><div class="cost">~$8</div></div>
+<div class="act"><span class="time">12:00</span><div class="info"><h4>🚄 KTX Seúl → Busan</h4><p>2h 30min directo. Dosirak en estación ~₩7K.</p></div><div class="cost">~$43</div></div>
+<div class="act"><span class="time">14:30</span><div class="info"><h4>🏨 Check-in Haeundae/Seomyeon</h4><p>$40-65/noche pp.</p></div><div class="cost">$50/n</div></div>
+<div class="act"><span class="time">15:30</span><div class="info"><h4>🌊 Haedong Yonggungsa</h4><p>Templo sobre acantilados. Bus #181. Gratis.</p><p class="tip">💡 Ir antes de 5PM. 100+ escalones. Vistas increíbles.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">18:00</span><div class="info"><h4>🐟 Jagalchi Fish Market</h4><p>Elegir vivo 1er piso, preparan 2do. Sashimi 2p: ₩30-50K.</p></div><div class="cost">~$18</div></div>
+<div class="act"><span class="time">20:00</span><div class="info"><h4>🌉 Gwangalli Beach</h4><p>Puente Gwangan iluminado. Cerveza en playa.</p></div><div class="cost">~$5</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 5 · Daegu</h3><div class="date">Dom 14 Sep — Templos & Picante</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>🛕 Haeinsa Temple (UNESCO)</h4><p>80,000+ bloques Tripitaka. Bus ~1.5h. Entrada ₩3K.</p><p class="tip">💡 Bus desde Seobu Terminal. Zapatos cómodos — templo en la montaña.</p></div><div class="cost">~$15</div></div>
-<div class="activity"><span class="time">14:00</span><div class="info"><h4>🍲 Jjimdak — Capital del picante</h4><p>Pollo estofado con fideos. Calle Jjimdak en Dongseongno. Para 2: ₩25-30K.</p></div><div class="cost">~$10</div></div>
-<div class="activity"><span class="time">19:00</span><div class="info"><h4>🔥 Makchang en Anjirang Alley</h4><p>Intestinos a la parrilla con ssamjang y soju. Suena raro, sabe increíble.</p></div><div class="cost">~$12</div></div>
+<div class="tl kr"><h3>Día 5 · Busan</h3><div class="date">Dom 14 Sep — Playas & Arte</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>🏖️ Haeundae Coastal Walk</h4><p>Sendero Dalmaji-gil 3km. Vista al mar.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">10:30</span><div class="info"><h4>🎨 Gamcheon Culture Village</h4><p>"Santorini de Korea". Casas coloridas, murales. Mapa-sello ₩2K.</p><p class="tip">💡 Buscar al Principito. Todo cuesta arriba — zapatos cómodos.</p></div><div class="cost">~$2</div></div>
+<div class="act"><span class="time">13:00</span><div class="info"><h4>🍜 BIFF Square</h4><p>Hotteok ₩1K, ssiat hotteok con semillas. OBLIGATORIO.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">14:30</span><div class="info"><h4>🏔️ Taejongdae 💎</h4><p>Acantilados y faro. Danubi Train ₩3K. Menos turístico.</p></div><div class="cost">~$3</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>🎨 Huinnyeoul Village 💎</h4><p>Pueblo costero artístico. Galerías con vista al mar.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">19:30</span><div class="info"><h4>🍺 Chimaek — Última Korea</h4><p>Chicken + Beer. Tradición coreana. KFC + Cass/Hite.</p></div><div class="cost">~$15</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 6 · Daegu → Busan</h3><div class="date">Lun 15 Sep — Costa</div>
-<div class="activity"><span class="time">09:00</span><div class="info"><h4>🚄 KTX Daegu → Busan</h4><p>45min. Llegar temprano para aprovechar.</p></div><div class="cost">~$9</div></div>
-<div class="activity"><span class="time">10:30</span><div class="info"><h4>🏨 Check-in — Haeundae o Seomyeon</h4><p>$40-65/noche pp.</p></div><div class="cost">$50/n pp</div></div>
-<div class="activity"><span class="time">11:30</span><div class="info"><h4>🌊 Haedong Yonggungsa Temple</h4><p>Templo budista sobre acantilados. Bus #181. Gratis.</p><p class="tip">💡 Ir ANTES de mediodía. 100+ escalones. Vistas increíbles.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">14:00</span><div class="info"><h4>🐟 Jagalchi Fish Market</h4><p>Elegir pescado vivo 1er piso, preparan en 2do. Sashimi para 2: ₩30-50K.</p></div><div class="cost">~$18</div></div>
-<div class="activity"><span class="time">16:30</span><div class="info"><h4>🎨 Gamcheon Culture Village</h4><p>"Santorini de Korea". Mapa-sello ₩2K.</p><p class="tip">💡 Ir 16:00 para mejor luz. Buscar al Principito.</p></div><div class="cost">~$2</div></div>
-<div class="activity"><span class="time">19:00</span><div class="info"><h4>🌉 Gwangalli Beach</h4><p>Puente Gwangan iluminado. Mariscos frente a la playa.</p></div><div class="cost">~$12</div></div>
+<div class="tl th"><h3>Día 6 · Busan → Bangkok</h3><div class="date">Lun 15 Sep — Al trópico</div>
+<div class="act"><span class="time">11:00</span><div class="info"><h4>✈️ Busan → Bangkok</h4><p>Jeju Air directo ~5.5h.</p></div><div class="cost">~$120</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🇹🇭 Llegada Bangkok</h4><p>TDAC QR. SIM AIS/DTAC ~₿300 ($9). Airport Rail Link ~₿45.</p><p class="tip">💡 TDAC 72h antes: tdac.immigration.go.th</p></div><div class="cost">~$12</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>🏨 Check-in Silom/Sukhumvit</h4><p>$20-45/noche pp. Agoda mejores precios.</p></div><div class="cost">$30/n</div></div>
+<div class="act"><span class="time">19:30</span><div class="info"><h4>🍜 Yaowarat (Chinatown)</h4><p>THE street food. Pad Thai, Khao Kha Moo. Todo $1-3.</p><p class="tip">💡 Explota después de 7PM. Explorar callejones.</p></div><div class="cost">~$5</div></div>
 </div>
 
-<div class="timeline-day kr"><h3>Día 7 · Busan</h3><div class="date">Mar 16 Sep — Playas</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>🏖️ Haeundae Coastal Walk</h4><p>Sendero costero 3km hacia Songjeong. Vista al mar.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">10:30</span><div class="info"><h4>🏔️ Taejongdae 💎</h4><p>Acantilados y faro. Danubi Train (₩3K). Menos turístico.</p></div><div class="cost">~$3</div></div>
-<div class="activity"><span class="time">13:00</span><div class="info"><h4>🍜 BIFF Square Street Food</h4><p>Hotteok (₩1K), fishcake (₩2K), ssiat hotteok.</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🎨 Huinnyeoul Culture Village 💎</h4><p>Pueblo costero artístico. Más auténtico que Gamcheon.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">19:30</span><div class="info"><h4>🍺 Chimaek — Última noche Korea</h4><p>Fried chicken + cerveza Cass/Hite. Tradición coreana.</p></div><div class="cost">~$15</div></div>
+<div class="tl th"><h3>Día 7 · Bangkok</h3><div class="date">Mar 16 Sep — Templos sagrados</div>
+<div class="act"><span class="time">07:30</span><div class="info"><h4>🏛️ Grand Palace + Wat Phra Kaew</h4><p>₿500 ($15). DRESS CODE: cubrir hombros/rodillas.</p><p class="tip">💡 LLEGAR 8:00. "Está cerrado hoy" = SCAM.</p></div><div class="cost">~$15</div></div>
+<div class="act"><span class="time">10:30</span><div class="info"><h4>🛕 Wat Pho</h4><p>Buda reclinado 46m. ₿300. Masaje Thai ~₿300/30min.</p></div><div class="cost">~$9</div></div>
+<div class="act"><span class="time">12:00</span><div class="info"><h4>⛴️ Wat Arun</h4><p>Ferry ₿4. Subir templo ₿100. Vista del río.</p></div><div class="cost">~$3</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🏔️ Wat Saket 💎</h4><p>344 escalones. Vista 360° sin multitudes. ₿100.</p></div><div class="cost">~$3</div></div>
+<div class="act"><span class="time">17:30</span><div class="info"><h4>🌅 Sky Bar (Lebua)</h4><p>Rooftop "The Hangover II". Cocktails ₿500-700.</p><p class="tip">💡 Ir al sunset. Alt: Octave Rooftop más accesible.</p></div><div class="cost">~$15</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 8 · Busan → Bangkok</h3><div class="date">Mié 17 Sep — Al trópico</div>
-<div class="activity"><span class="time">12:00</span><div class="info"><h4>✈️ Vuelo Busan → Bangkok</h4><p>Jeju Air directo. ~5.5h.</p></div><div class="cost">~$120</div></div>
-<div class="activity"><span class="time">16:00</span><div class="info"><h4>🇹🇭 Llegada Bangkok</h4><p>TDAC QR, SIM card AIS/DTAC (~₿300/$9). Airport Rail Link (~₿45, 30min).</p><p class="tip">💡 NO OLVIDAR TDAC: tdac.immigration.go.th — 72h antes.</p></div><div class="cost">~$12</div></div>
-<div class="activity"><span class="time">18:00</span><div class="info"><h4>🏨 Check-in — Silom/Sukhumvit</h4><p>$20-45/noche pp. Agoda mejores precios.</p></div><div class="cost">$30/n pp</div></div>
-<div class="activity"><span class="time">20:00</span><div class="info"><h4>🍜 Yaowarat (Chinatown)</h4><p>THE street food nocturna. Pad Thai, Khao Kha Moo, ostras. Todo $1-3.</p><p class="tip">💡 Explota después de las 7PM. Explorar callejones.</p></div><div class="cost">~$5</div></div>
+<div class="tl th"><h3>Día 8 · Bangkok</h3><div class="date">Mié 17 Sep — Mercados & Arte</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>🚤 Amphawa Floating Market</h4><p>El MÁS AUTÉNTICO. Tour ~₿800-1,500 ($25-45).</p><p class="tip">💡 Amphawa >> Damnoen Saduak (turistramp).</p></div><div class="cost">~$30</div></div>
+<div class="act"><span class="time">13:00</span><div class="info"><h4>🎨 Talat Noi 💎</h4><p>Arte callejero Old Bangkok. "Wynwood" tailandés.</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🚲 Bang Krachao 💎</h4><p>Isla selvática. Ferry ₿5 + bici ₿100. CERO turistas.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">20:00</span><div class="info"><h4>🍹 Khao San Road</h4><p>UNA noche para la experiencia. Pad Thai, smoothies.</p></div><div class="cost">~$8</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 9 · Bangkok</h3><div class="date">Jue 18 Sep — Templos</div>
-<div class="activity"><span class="time">07:30</span><div class="info"><h4>🏛️ Grand Palace + Wat Phra Kaew</h4><p>₿500 ($15). DRESS CODE: cubrir hombros y rodillas.</p><p class="tip">💡 LLEGAR 8:00. Ignorar "está cerrado hoy" = SCAM.</p></div><div class="cost">~$15</div></div>
-<div class="activity"><span class="time">10:30</span><div class="info"><h4>🛕 Wat Pho — Buda Reclinado</h4><p>46m de largo. ₿300. Masaje Thai dentro (~₿300/30min).</p></div><div class="cost">~$9</div></div>
-<div class="activity"><span class="time">12:00</span><div class="info"><h4>⛴️ Ferry a Wat Arun</h4><p>Ferry ₿4. Subir templo ₿100. Vista espectacular del río.</p></div><div class="cost">~$3</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🏔️ Wat Saket (Golden Mount) 💎</h4><p>344 escalones. Vista 360° sin multitudes. ₿100.</p></div><div class="cost">~$3</div></div>
-<div class="activity"><span class="time">17:30</span><div class="info"><h4>🌅 Sky Bar (Lebua) Rooftop</h4><p>Rooftop de "The Hangover II". Smart casual. Cocktails ₿500-700.</p><p class="tip">💡 Ir al sunset. Sin reservación para el bar. Alt: Octave Rooftop, más accesible.</p></div><div class="cost">~$15</div></div>
+<div class="tl th"><h3>Día 9 · BKK → Chiang Mai</h3><div class="date">Jue 18 Sep — Al norte</div>
+<div class="act"><span class="time">07:00</span><div class="info"><h4>✈️ BKK → Chiang Mai</h4><p>AirAsia 1h 15min.</p></div><div class="cost">~$35</div></div>
+<div class="act"><span class="time">09:30</span><div class="info"><h4>🏨 Old City o Nimman</h4><p>$15-35/noche pp. Increíblemente barato.</p></div><div class="cost">$25/n</div></div>
+<div class="act"><span class="time">11:00</span><div class="info"><h4>🛕 Templos Old City</h4><p>Wat Chedi Luang, Wat Phra Singh, Wat Chiang Man.</p></div><div class="cost">~$4</div></div>
+<div class="act"><span class="time">13:00</span><div class="info"><h4>🍜 Khao Soi</h4><p>EL plato del norte. Curry coco + fideos crujientes. ₿50.</p></div><div class="cost">~$2</div></div>
+<div class="act"><span class="time">14:30</span><div class="info"><h4>🗣️ Monk Chat 💎</h4><p>Hablar con monjes en Wat Chedi Luang. Gratis. ÚNICA.</p><p class="tip">💡 Lun-vie 9AM-6PM. Preguntar todo sobre budismo.</p></div><div class="cost">Gratis</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 10 · Bangkok</h3><div class="date">Vie 19 Sep — Mercados & Arte</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>🚤 Amphawa Floating Market</h4><p>El MÁS AUTÉNTICO. ~1.5h de Bangkok. Tour ~₿800-1,500 ($25-45).</p><p class="tip">💡 Amphawa abre vie-dom. Mucho más real que Damnoen Saduak.</p></div><div class="cost">~$30</div></div>
-<div class="activity"><span class="time">13:00</span><div class="info"><h4>🎨 Talat Noi 💎</h4><p>Arte callejero en Old Bangkok. El "Wynwood" de Bangkok.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🚲 Bang Krachao 💎</h4><p>Isla selvática. Ferry (₿5) + bici (₿100/día). CERO turistas.</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">18:00</span><div class="info"><h4>🍚 Or Tor Kor Market</h4><p>Mercado gourmet más limpio de Bangkok. Frutas tropicales perfectas.</p></div><div class="cost">~$5</div></div>
+<div class="tl th"><h3>Día 10 · Chiang Mai</h3><div class="date">Vie 19 Sep — Elefantes</div>
+<div class="act"><span class="time">07:00</span><div class="info"><h4>🐘 Santuario Elefantes ÉTICO</h4><p>Elephant Nature Park. Día completo. NO se monta.</p><p class="tip">💡 SOLO éticos. ~₿2,500-3,500 ($70-100). Incluye todo. MEJOR experiencia.</p></div><div class="cost">~$80</div></div>
+<div class="act"><span class="time">16:00</span><div class="info"><h4>☕ Baan Kang Wat 💎</h4><p>Comunidad artistas. Cerámica, cafés.</p></div><div class="cost">~$3</div></div>
+<div class="act"><span class="time">17:30</span><div class="info"><h4>🛕 Wat Umong 💎</h4><p>Túneles subterráneos en bosque. Místico.</p></div><div class="cost">Gratis</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 11 · Bangkok → Chiang Mai</h3><div class="date">Sáb 20 Sep — Norte</div>
-<div class="activity"><span class="time">07:00</span><div class="info"><h4>✈️ Vuelo BKK → CNX</h4><p>AirAsia. 1h 15min.</p></div><div class="cost">~$35</div></div>
-<div class="activity"><span class="time">09:30</span><div class="info"><h4>🏨 Check-in — Old City o Nimman</h4><p>$15-35/noche pp. Increíblemente barato.</p></div><div class="cost">$25/n pp</div></div>
-<div class="activity"><span class="time">11:00</span><div class="info"><h4>🛕 Templos Old City</h4><p>Wat Chedi Luang, Wat Phra Singh, Wat Chiang Man. Gratis o ₿40.</p></div><div class="cost">~$4</div></div>
-<div class="activity"><span class="time">13:00</span><div class="info"><h4>🍜 Khao Soi</h4><p>EL plato del norte. Curry coco + fideos crujientes. ₿50 ($1.50).</p></div><div class="cost">~$2</div></div>
-<div class="activity"><span class="time">14:30</span><div class="info"><h4>🗣️ Monk Chat 💎</h4><p>Hablar con monjes budistas en Wat Chedi Luang. Gratis. Experiencia ÚNICA.</p><p class="tip">💡 Lun-vie 9AM-6PM. Puedes preguntar todo sobre budismo.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">17:00</span><div class="info"><h4>🌙 Saturday Night Market (Wualai)</h4><p>Más local que el de domingo. Artesanías, comida, música.</p></div><div class="cost">~$8</div></div>
+<div class="tl th"><h3>Día 11 · Chiang Mai</h3><div class="date">Sáb 20 Sep — Montaña & Cocina</div>
+<div class="act"><span class="time">07:00</span><div class="info"><h4>🏔️ Doi Suthep</h4><p>Templo dorado. 306 escalones. Songthaew ₿60.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">10:00</span><div class="info"><h4>👨‍🍳 Clase Cocina Thai</h4><p>Mercado + cocinar 4-5 platos. ~₿900-1,200 ($25-35).</p><p class="tip">💡 Thai Farm Cooking School. Incluye recetario.</p></div><div class="cost">~$30</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🌊 Sticky Waterfall</h4><p>Cascada escalable (calcio). ~1h de CM.</p></div><div class="cost">~$15</div></div>
+<div class="act"><span class="time">18:00</span><div class="info"><h4>🌙 Saturday Night Market</h4><p>Wualai Road. Más local. Artesanías, comida.</p></div><div class="cost">~$10</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 12 · Chiang Mai</h3><div class="date">Dom 21 Sep — Elefantes</div>
-<div class="activity"><span class="time">07:00</span><div class="info"><h4>🐘 Santuario de Elefantes ÉTICO</h4><p>Elephant Nature Park. Día completo. NO se monta a los elefantes.</p><p class="tip">💡 SOLO santuarios éticos. Reservar en web (~₿2,500-3,500 / $70-100). Incluye transporte y almuerzo.</p></div><div class="cost">~$80</div></div>
-<div class="activity"><span class="time">16:00</span><div class="info"><h4>☕ Baan Kang Wat 💎</h4><p>Comunidad de artistas. Cerámica, cafés de especialidad.</p></div><div class="cost">~$3</div></div>
-<div class="activity"><span class="time">17:30</span><div class="info"><h4>🛕 Wat Umong 💎</h4><p>Túneles subterráneos en el bosque. Místico y silencioso.</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">19:00</span><div class="info"><h4>🌙 Sunday Walking Street</h4><p>EL mercado de Chiang Mai. Ratchadamnoen Road completa.</p></div><div class="cost">~$10</div></div>
+<div class="tl th"><h3>Día 12 · CM → Krabi</h3><div class="date">Dom 21 Sep — Playas</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>☕ Huay Tung Tao 💎</h4><p>Cabañas bambú sobre agua. Khao Soi con montañas.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">11:00</span><div class="info"><h4>✈️ CM → Krabi</h4><p>AirAsia directo o vía BKK. ~2-4h.</p></div><div class="cost">~$55</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🏨 Ao Nang</h4><p>Base para Railay e islas. $15-35/noche pp.</p></div><div class="cost">$25/n</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>🏖️ Ao Nang Sunset</h4><p>Sunset entre acantilados. Pad Thai + Chang.</p></div><div class="cost">~$8</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 13 · Chiang Mai</h3><div class="date">Lun 22 Sep — Montañas</div>
-<div class="activity"><span class="time">07:00</span><div class="info"><h4>🏔️ Doi Suthep Temple</h4><p>Templo dorado, 306 escalones. Songthaew rojo (₿60 pp).</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">10:00</span><div class="info"><h4>👨‍🍳 Clase de Cocina Thai</h4><p>Mercado + cocinar 4-5 platos. ~₿900-1,200 ($25-35).</p><p class="tip">💡 Thai Farm Cooking School o Mama Noi. Incluye recetario.</p></div><div class="cost">~$30</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🌊 Sticky Waterfall — Bua Tong</h4><p>Cascada escalable (depósitos de calcio). ~1h de CM.</p></div><div class="cost">~$15</div></div>
-<div class="activity"><span class="time">19:00</span><div class="info"><h4>🍽️ Khantoke Dinner</h4><p>Cena tradicional sentados en piso + show cultural. ~₿600 ($18).</p></div><div class="cost">~$18</div></div>
+<div class="tl th"><h3>Día 13 · Krabi</h3><div class="date">Lun 22 Sep — 4 Islands</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>🏝️ Four Islands Tour</h4><p>Phra Nang, Tup Island, Chicken, Poda. Snorkeling.</p><p class="tip">💡 Agencias Ao Nang ~₿700-1K ($20-30). Long-tail más auténtico.</p></div><div class="cost">~$25</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>💆 Masaje Thai</h4><p>1h: ₿300-500 ($9-15). En cada esquina.</p></div><div class="cost">~$10</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 14 · CM → Krabi</h3><div class="date">Mar 23 Sep — Playas</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>☕ Huay Tung Tao Lake 💎</h4><p>Cabañas de bambú sobre agua. Khao Soi con vista. ₿50.</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">11:00</span><div class="info"><h4>✈️ Vuelo CM → Krabi</h4><p>AirAsia directo o vía Bangkok.</p></div><div class="cost">~$55</div></div>
-<div class="activity"><span class="time">15:00</span><div class="info"><h4>🏨 Check-in Ao Nang</h4><p>Base para Railay e islas. $15-35/noche pp.</p></div><div class="cost">$25/n pp</div></div>
-<div class="activity"><span class="time">17:00</span><div class="info"><h4>🏖️ Ao Nang al atardecer</h4><p>Sunset entre acantilados de caliza. Pad Thai + Chang.</p></div><div class="cost">~$8</div></div>
+<div class="tl th"><h3>Día 14 · Krabi</h3><div class="date">Mar 23 Sep — Railay</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>⛴️ Railay Beach</h4><p>Long-tail ₿100 (15min). Solo accesible por mar.</p></div><div class="cost">~$3</div></div>
+<div class="act"><span class="time">09:00</span><div class="info"><h4>🧗 Rock Climbing</h4><p>Half-day principiantes. ₿1-1.5K ($30-45). Caliza sobre mar.</p></div><div class="cost">~$35</div></div>
+<div class="act"><span class="time">13:00</span><div class="info"><h4>🏖️ Phra Nang Cave Beach</h4><p>Playa en cueva. La más fotografiada de Tailandia.</p></div><div class="cost">~$5</div></div>
+<div class="act"><span class="time">16:00</span><div class="info"><h4>🌿 Railay Viewpoint Lagoon</h4><p>Hike 20min con cuerdas. Laguna turquesa escondida.</p><p class="tip">💡 Zapatos con grip, NO chanclas. Vale 100%.</p></div><div class="cost">Gratis</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 15 · Krabi</h3><div class="date">Mié 24 Sep — 4 Islas</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>🏝️ Four Islands Tour</h4><p>Phra Nang, Tup Island, Chicken Island, Poda. Snorkeling incluido.</p><p class="tip">💡 Agencias en Ao Nang (~₿700-1,000 / $20-30). Long-tail boat más auténtico.</p></div><div class="cost">~$25</div></div>
-<div class="activity"><span class="time">17:00</span><div class="info"><h4>💆 Masaje Thai</h4><p>1 hora: ₿300-500 ($9-15). En cada esquina.</p></div><div class="cost">~$10</div></div>
+<div class="tl th"><h3>Día 15 · Krabi</h3><div class="date">Mié 24 Sep — Naturaleza</div>
+<div class="act"><span class="time">07:00</span><div class="info"><h4>🐅 Tiger Cave Temple</h4><p>1,260 escalones. Vista 360°. Ir TEMPRANO.</p><p class="tip">💡 7AM antes del calor. Monos (no mostrar comida).</p></div><div class="cost">Gratis</div></div>
+<div class="act"><span class="time">11:00</span><div class="info"><h4>💎 Emerald Pool + Blue Pool</h4><p>Piscinas naturales en selva. ₿200. ~1h de Ao Nang.</p></div><div class="cost">~$8</div></div>
+<div class="act"><span class="time">14:00</span><div class="info"><h4>♨️ Khlong Thom Hot Springs 💎</h4><p>Termales en jungla. Cerca de Emerald Pool.</p></div><div class="cost">~$6</div></div>
+<div class="act"><span class="time">17:00</span><div class="info"><h4>🛶 Kayak Ao Thalane</h4><p>Manglares al atardecer. ₿800 ($23).</p></div><div class="cost">~$23</div></div>
 </div>
 
-<div class="timeline-day th"><h3>Día 16 · Krabi</h3><div class="date">Jue 25 Sep — Railay</div>
-<div class="activity"><span class="time">08:00</span><div class="info"><h4>⛴️ Lancha a Railay Beach</h4><p>Long-tail desde Ao Nang (₿100, 15min). Solo accesible por mar.</p></div><div class="cost">~$3</div></div>
-<div class="activity"><span class="time">09:00</span><div class="info"><h4>🧗 Rock Climbing Railay</h4><p>Half-day principiantes. ₿1,000-1,500 ($30-45). Caliza sobre el mar.</p></div><div class="cost">~$35</div></div>
-<div class="activity"><span class="time">13:00</span><div class="info"><h4>🏖️ Phra Nang Cave Beach</h4><p>Playa en cueva. La más fotografiada de Tailandia.</p></div><div class="cost">~$5</div></div>
-<div class="activity"><span class="time">16:00</span><div class="info"><h4>🌿 Railay Viewpoint Lagoon</h4><p>Hike intenso 20min (cuerdas). Laguna turquesa escondida.</p><p class="tip">💡 Zapatos con grip, NO chanclas. Resbaladizo pero vale la pena.</p></div><div class="cost">Gratis</div></div>
-</div>
-
-<div class="timeline-day th"><h3>Día 17 · Krabi</h3><div class="date">Vie 26 Sep — Naturaleza</div>
-<div class="activity"><span class="time">07:00</span><div class="info"><h4>🐅 Tiger Cave Temple</h4><p>1,260 escalones. Vista 360°. Ir TEMPRANO.</p><p class="tip">💡 45min-1h subir. Monos en camino (no mostrar comida).</p></div><div class="cost">Gratis</div></div>
-<div class="activity"><span class="time">11:00</span><div class="info"><h4>💎 Emerald Pool + Blue Pool</h4><p>Piscinas naturales en selva. ₿200 ($6).</p></div><div class="cost">~$8</div></div>
-<div class="activity"><span class="time">14:00</span><div class="info"><h4>♨️ Khlong Thom Hot Springs 💎</h4><p>Aguas termales en jungla. Cerca de Emerald Pool.</p></div><div class="cost">~$6</div></div>
-<div class="activity"><span class="time">17:00</span><div class="info"><h4>🛶 Kayak manglares Ao Thalane</h4><p>Kayak al atardecer. Tours desde ₿800 ($23).</p></div><div class="cost">~$23</div></div>
-</div>
-
-<div class="timeline-day th"><h3>Día 18 · Krabi → Bangkok</h3><div class="date">Sáb 27 Sep</div>
-<div class="activity"><span class="time">13:00</span><div class="info"><h4>✈️ Vuelo Krabi → Bangkok</h4><p>AirAsia. 1h 20min.</p></div><div class="cost">~$35</div></div>
-<div class="activity"><span class="time">16:30</span><div class="info"><h4>🛍️ Chatuchak Weekend Market</h4><p>15,000+ puestos. Ropa, arte, comida.</p></div><div class="cost">~$15</div></div>
-<div class="activity"><span class="time">20:00</span><div class="info"><h4>🌙 Nang Loeng Market 💎</h4><p>120+ años. CERO turistas. Comida auténtica.</p></div><div class="cost">~$4</div></div>
-</div>
-
-<div class="timeline-day th"><h3>Día 19-20 · Bangkok → Miami</h3><div class="date">Dom-Lun 28-29 Sep</div>
-<div class="activity"><span class="time">09:00</span><div class="info"><h4>🛍️ Últimas compras / Jim Thompson House</h4><p>₿200 ($6). O último masaje Thai (~₿300).</p></div><div class="cost">~$10</div></div>
-<div class="activity"><span class="time">14:00</span><div class="info"><h4>✈️ Vuelo BKK → MIA</h4><p>21-28h con escalas. Llegar 3h antes.</p></div><div class="cost">~$550</div></div>
+<div class="tl th"><h3>Día 16 · Krabi → BKK → MIA</h3><div class="date">Jue-Vie 25-26 Sep — Regreso</div>
+<div class="act"><span class="time">08:00</span><div class="info"><h4>🏖️ Último baño + masaje</h4><p>Mañana libre Ao Nang.</p></div><div class="cost">~$12</div></div>
+<div class="act"><span class="time">12:00</span><div class="info"><h4>✈️ Krabi → Bangkok</h4><p>AirAsia 1h 20min.</p></div><div class="cost">~$35</div></div>
+<div class="act"><span class="time">15:00</span><div class="info"><h4>🛍️ Últimas horas BKK</h4><p>Terminal 21, MBK Center, o último masaje.</p></div><div class="cost">~$10</div></div>
+<div class="act"><span class="time">18:00</span><div class="info"><h4>✈️ BKK → Miami</h4><p>21-28h con escalas. Llegada ~Sep 26.</p></div><div class="cost">~$550</div></div>
 </div>
 </div>
 </section>
 
-<!-- CIUDADES -->
 <section id="ciudades">
-<h2 class="section-title">🏙️ Guías por Ciudad</h2>
-<p class="section-sub">Info esencial de cada destino</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">🏙️ Guías por Ciudad</h2><p class="section-sub">Info esencial</p><div class="divider mixed"></div>
 <div class="tabs">
-<button class="tab-btn active kr" data-tab="seoul">🇰🇷 Seúl</button>
-<button class="tab-btn kr" data-tab="daegu">🇰🇷 Daegu</button>
-<button class="tab-btn kr" data-tab="busan">🇰🇷 Busan</button>
-<button class="tab-btn th" data-tab="bangkok">🇹🇭 Bangkok</button>
-<button class="tab-btn th" data-tab="chiangmai">🇹🇭 Chiang Mai</button>
-<button class="tab-btn th" data-tab="krabi">🇹🇭 Krabi</button>
+<button class="tab-btn active kr" data-tab="seoul">🇰🇷 Seúl</button><button class="tab-btn kr" data-tab="busan">🇰🇷 Busan</button><button class="tab-btn th" data-tab="bangkok">🇹🇭 Bangkok</button><button class="tab-btn th" data-tab="chiangmai">🇹🇭 Chiang Mai</button><button class="tab-btn th" data-tab="krabi">🇹🇭 Krabi</button>
 </div>
 <div class="tab-content active" id="seoul"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Zonas:</strong> Myeongdong (compras+metro), Jongno (palacios), Hongdae (nocturno)<br><strong>$40-70/noche pp</strong> · Agoda, Booking, Airbnb<br>💡 Buscar "near station". T-Money en todo el metro.</p></div>
-<div class="card"><h4>🍜 Comida</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Korean BBQ:</strong> ₩12-15K pp · <strong>Bibimbap:</strong> ₩8-10K<br><strong>Tteokbokki:</strong> ₩3-4K · <strong>Chimaek:</strong> ₩15-20K<br><strong>$20-30/día</strong> · 7-Eleven tiene gimbap ₩1,500</p></div>
-<div class="card"><h4>🚇 Transporte</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>T-Money:</strong> Metro ₩1,350 (~$1). Extensivo, limpio.<br><strong>Taxi:</strong> Inicio ₩4,800 (~$3.50). Usar KakaoTaxi.<br>Uber no funciona en Korea.</p></div>
-<div class="card"><h4>📱 Apps</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Naver Map:</strong> MEJOR que Google Maps en Korea<br><strong>KakaoTalk:</strong> WhatsApp de Korea<br><strong>Papago:</strong> Traductor (mejor que Google para coreano)<br><strong>Subway Korea:</strong> Rutas metro</p></div>
-</div></div>
-<div class="tab-content" id="daegu"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Zona:</strong> Dongseongno — comercial, metro<br><strong>$35-55/noche pp</strong> · Más barato que Seúl<br>💡 Hotels/motels reconvertidos — limpios y buenos.</p></div>
-<div class="card"><h4>🍜 Especialidades</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Jjimdak:</strong> Pollo picante ₩25-30K/2 · <strong>Makchang:</strong> Intestinos a la parrilla<br><strong>Flat dumplings:</strong> ₩3K en Seomun · <strong>$15-25/día</strong></p></div>
+<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Zonas:</strong> Myeongdong (compras), Jongno (palacios), Hongdae (nocturno)<br><strong>$40-70/n pp</strong> · Agoda, Booking, Airbnb · T-Money en todo metro</p></div>
+<div class="card"><h4>🍜 Comida</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>BBQ:</strong> ₩12-15K · <strong>Bibimbap:</strong> ₩8-10K · <strong>Chimaek:</strong> ₩15-20K<br><strong>$20-30/día</strong> · 7-Eleven: gimbap ₩1,500</p></div>
+<div class="card"><h4>🚇 Transporte</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>T-Money:</strong> Metro ₩1,350 (~$1). Taxi ₩4,800 inicio.<br>Uber NO → usar <strong>KakaoTaxi</strong></p></div>
+<div class="card"><h4>📱 Apps</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Naver Map</strong> > Google Maps · <strong>KakaoTalk</strong> · <strong>Papago</strong> traductor · <strong>Subway Korea</strong></p></div>
 </div></div>
 <div class="tab-content" id="busan"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Haeundae:</strong> Playa · <strong>Seomyeon:</strong> Céntrico/local<br><strong>$40-65/noche pp</strong><br>💡 Business hotels baratos y excelentes.</p></div>
-<div class="card"><h4>🍜 Comida</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Sashimi:</strong> Jagalchi ₩20-30K · <strong>Milmyeon:</strong> Fideos fríos ₩7-8K<br><strong>Ssiat Hotteok:</strong> BIFF Square ₩1,500 OBLIGATORIO<br><strong>Dwaeji Gukbap:</strong> Sopa cerdo/arroz ₩8K</p></div>
+<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Haeundae:</strong> Playa · <strong>Seomyeon:</strong> Céntrico · <strong>Nampo:</strong> Mercados<br><strong>$40-65/n pp</strong> · Business hotels excelentes</p></div>
+<div class="card"><h4>🍜 Comida</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Sashimi:</strong> Jagalchi ₩20-30K · <strong>Ssiat Hotteok:</strong> BIFF ₩1,500<br><strong>Milmyeon:</strong> Fideos fríos ₩7-8K · <strong>Gukbap:</strong> ₩8K</p></div>
 </div></div>
 <div class="tab-content" id="bangkok"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Silom/Sathorn:</strong> BTS + rooftops · <strong>Sukhumvit:</strong> Moderno<br><strong>EVITAR Khao San para dormir</strong><br><strong>$20-45/noche pp</strong> · Agoda mejores precios</p></div>
-<div class="card"><h4>🍜 Street Food</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Pad Thai:</strong> Thipsamai ₿80 · <strong>Mango Sticky Rice:</strong> Mae Varee ₿60<br><strong>Boat Noodles:</strong> ₿15-30/bowl (!!) · <strong>Som Tum:</strong> ₿40<br><strong>$10-15/día</strong> callejero · $20-25 con restaurantes</p></div>
-<div class="card"><h4>🚇 Transporte</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>BTS:</strong> ₿16-62 · <strong>MRT:</strong> ₿16-42 · <strong>Grab:</strong> USAR SIEMPRE vs taxis<br>⚠️ NUNCA tuk-tuk que ofrece "tour barato" = scam a tiendas gems</p></div>
-<div class="card"><h4>⚠️ Scams</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>"Temple closed today":</strong> MENTIRA<br><strong>Gem scam:</strong> "Government sale" = FALSO<br><strong>Tuk-tuk ₿20/día:</strong> Te llevan a tiendas comisión<br><strong>Jet ski:</strong> Te acusan daño. No rentar<br><strong>Taxi:</strong> SIEMPRE pedir medidor encendido</p></div>
+<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Silom:</strong> BTS+rooftops · <strong>Sukhumvit:</strong> Moderno<br>EVITAR Khao San dormir · <strong>$20-45/n pp</strong> · Agoda</p></div>
+<div class="card"><h4>🍜 Street Food</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Pad Thai:</strong> ₿80 · <strong>Boat Noodles:</strong> ₿15-30/bowl<br><strong>Mango Sticky Rice:</strong> ₿60 · <strong>$10-15/día</strong></p></div>
+<div class="card"><h4>🚇 Transporte</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>BTS/MRT:</strong> ₿16-62 · <strong>Grab</strong> SIEMPRE vs taxis<br>⚠️ Tuk-tuk "₿20/day" = SCAM gems</p></div>
+<div class="card"><h4>⚠️ Scams</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem">"Temple closed" = MENTIRA · Gem scam = FALSO<br>Jet ski = acusan daño · Taxi sin meter = NO</p></div>
 </div></div>
 <div class="tab-content" id="chiangmai"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Old City:</strong> Murallas, templos, barato · <strong>Nimman:</strong> Hipster, cafés<br><strong>$15-35/noche pp</strong> · Hotels boutique $25/noche existen</p></div>
-<div class="card"><h4>🍜 Comida del Norte</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Khao Soi:</strong> ₿50-80 ($1.50-2.50) · <strong>Sai Oua:</strong> Salchicha ₿30-50<br><strong>Nam Prik Ong:</strong> Dip tomate/cerdo · <strong>$8-15/día</strong> — paraíso del budget</p></div>
+<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Old City:</strong> Murallas, barato · <strong>Nimman:</strong> Hipster<br><strong>$15-35/n pp</strong> · INCREÍBLEMENTE barato</p></div>
+<div class="card"><h4>🍜 Comida</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Khao Soi:</strong> ₿50-80 ($1.50) · <strong>Sai Oua:</strong> ₿30-50<br><strong>$8-15/día</strong> · Paraíso del budget</p></div>
 </div></div>
 <div class="tab-content" id="krabi"><div class="grid-2">
-<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Ao Nang:</strong> LA base. Todo aquí · <strong>Railay:</strong> 1 noche especial<br><strong>$15-35/noche pp</strong> · Sep = temporada baja = DESCUENTOS<br>💡 Walk-in deals son comunes en temporada baja.</p></div>
-<div class="card"><h4>🏝️ Tours</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>4 Islands:</strong> ₿700-1K ($20-30) · <strong>Hong Islands:</strong> ₿800-1,200<br><strong>Climbing Railay:</strong> ₿1-1.5K · <strong>Kayak:</strong> ₿800<br><strong>Tiger Cave:</strong> GRATIS · 💡 Agencias Ao Nang más barato que online</p></div>
+<div class="card"><h4>🏨 Hospedaje</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Ao Nang:</strong> LA base · <strong>Railay:</strong> 1 noche especial<br><strong>$15-35/n pp</strong> · Sep = temporada baja = DESCUENTOS</p></div>
+<div class="card"><h4>🏝️ Tours</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>4 Islands:</strong> $20-30 · <strong>Climbing:</strong> $30-45<br><strong>Tiger Cave:</strong> GRATIS · Agencias Ao Nang más barato</p></div>
 </div></div>
 </section>
 
-<!-- MAPA -->
 <section id="mapa">
-<h2 class="section-title">🗺️ Mapa Interactivo</h2>
-<p class="section-sub">Todos los destinos con marcadores</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">🗺️ Mapa Interactivo</h2><p class="section-sub">Todos los destinos</p><div class="divider mixed"></div>
 <div id="map"></div>
-<div class="map-legend">
-<span><span class="dot" style="background:#e74c3c"></span> Seúl</span>
-<span><span class="dot" style="background:#ff6b6b"></span> Daegu</span>
-<span><span class="dot" style="background:#ffa07a"></span> Busan</span>
-<span><span class="dot" style="background:#f39c12"></span> Bangkok</span>
-<span><span class="dot" style="background:#3498db"></span> Chiang Mai</span>
-<span><span class="dot" style="background:#00d4aa"></span> Krabi</span>
-</div>
+<div class="map-legend"><span><span class="dot" style="background:#e74c3c"></span> Seúl</span><span><span class="dot" style="background:#ffa07a"></span> Busan</span><span><span class="dot" style="background:#f39c12"></span> Bangkok</span><span><span class="dot" style="background:#3498db"></span> Chiang Mai</span><span><span class="dot" style="background:#00d4aa"></span> Krabi</span></div>
 </section>
 
-<!-- PRESUPUESTO -->
 <section id="presupuesto">
-<h2 class="section-title">💰 Presupuesto Detallado</h2>
-<p class="section-sub">Todo POR PERSONA · Precios en USD</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">💰 Presupuesto</h2><p class="section-sub">POR PERSONA · USD · 16 días</p><div class="divider mixed"></div>
 <div class="budget-wrap"><table class="budget-table">
-<thead><tr><th>Categoría</th><th>🇰🇷 Korea (8d)</th><th>🇹🇭 Tailandia (12d)</th><th>Total</th></tr></thead>
+<thead><tr><th>Categoría</th><th>🇰🇷 Korea (6d)</th><th>🇹🇭 Thai (10d)</th><th>Total pp</th></tr></thead>
 <tbody>
-<tr><td>✈️ MIA → Seúl</td><td>$550</td><td>—</td><td>$550</td></tr>
-<tr><td>✈️ Busan → Bangkok</td><td>$120</td><td>—</td><td>$120</td></tr>
-<tr><td>✈️ Bangkok → MIA</td><td>—</td><td>$550</td><td>$550</td></tr>
-<tr><td>✈️ Vuelos domésticos Thai</td><td>—</td><td>$125</td><td>$125</td></tr>
-<tr><td>🚄 KTX</td><td>$26</td><td>—</td><td>$26</td></tr>
-<tr><td>🚇 Transporte local</td><td>$40</td><td>$60</td><td>$100</td></tr>
-<tr><td>🏨 Alojamiento</td><td>$380 <small style="color:var(--text3)">(~$48/n)</small></td><td>$300 <small style="color:var(--text3)">(~$25/n)</small></td><td>$680</td></tr>
-<tr><td>🍜 Comida</td><td>$200 <small style="color:var(--text3)">(~$25/d)</small></td><td>$168 <small style="color:var(--text3)">(~$14/d)</small></td><td>$368</td></tr>
-<tr><td>🎫 Atracciones/Tours</td><td>$120</td><td>$200</td><td>$320</td></tr>
-<tr><td>📱 SIM/eSIM</td><td>$15</td><td>$9</td><td>$24</td></tr>
-<tr><td>🎒 Misceláneos</td><td>$50</td><td>$60</td><td>$110</td></tr>
-<tr class="total-row"><td><strong>TOTAL POR PERSONA</strong></td><td><strong>$1,501</strong></td><td><strong>$1,472</strong></td><td><strong style="color:var(--accent);font-size:1.2rem">$2,973</strong></td></tr>
-<tr class="total-row"><td colspan="3"><strong>💰 TOTAL 2 PERSONAS</strong></td><td><strong style="color:var(--thai);font-size:1.3rem">$5,946</strong></td></tr>
+<tr><td>✈️ MIA→ICN</td><td>$550</td><td>—</td><td>$550</td></tr>
+<tr><td>✈️ PUS→BKK</td><td>$120</td><td>—</td><td>$120</td></tr>
+<tr><td>✈️ BKK→MIA</td><td>—</td><td>$550</td><td>$550</td></tr>
+<tr><td>✈️ Thai domésticos</td><td>—</td><td>$125</td><td>$125</td></tr>
+<tr><td>🚄 KTX</td><td>$43</td><td>—</td><td>$43</td></tr>
+<tr><td>🚇 Local</td><td>$30</td><td>$50</td><td>$80</td></tr>
+<tr><td>🏨 Alojamiento</td><td>$300</td><td>$270</td><td>$570</td></tr>
+<tr><td>🍜 Comida</td><td>$150</td><td>$140</td><td>$290</td></tr>
+<tr><td>🎫 Tours</td><td>$100</td><td>$180</td><td>$280</td></tr>
+<tr><td>📱+🎒 Misc</td><td>$55</td><td>$59</td><td>$114</td></tr>
+<tr class="total-row"><td><strong>TOTAL PP</strong></td><td><strong>$1,348</strong></td><td><strong>$1,374</strong></td><td><strong style="color:var(--accent);font-size:1.2rem">$2,722</strong></td></tr>
+<tr class="total-row"><td colspan="3"><strong>💰 TOTAL 2 PERSONAS</strong></td><td><strong style="color:var(--thai);font-size:1.3rem">$5,444</strong></td></tr>
 </tbody></table></div>
 <div style="margin-top:2rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px">
-<h4>📊 Nota sobre el presupuesto</h4>
-<p style="color:var(--text2);font-size:.9rem;margin-top:.5rem">Presupuesto <strong>moderado-económico</strong>. Alojamiento privado (no hostal), comida callejera + restaurantes locales.<br><strong>Rango real:</strong> $2,500 (ultra económico) — $3,500 (cómodo con extras) por persona.</p>
+<h4>📊 Nota</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem">Presupuesto <strong>moderado-económico</strong>. Hotel/apartamento privado, street food + restaurantes, atracciones principales.<br><strong>Rango:</strong> $2,200 (ultra eco) — $3,200 (cómodo) por persona.</p>
 </div>
 </section>
 
-<!-- VISA -->
 <section id="visa">
-<h2 class="section-title">🛂 Visa & Documentos</h2>
-<p class="section-sub">Requisitos por pasaporte</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">🛂 Visa & Documentos</h2><div class="divider mixed"></div>
 <div class="grid-2">
-<div class="visa-card"><div class="passport">🇺🇸 USA → 🇰🇷 Korea</div><span class="status ok">✅ VISA FREE — 90 días</span><h4>Sin visa</h4><p style="color:var(--text2);font-size:.9rem"><strong>K-ETA:</strong> Exento hasta dic 2026 (opcional).<br><strong>Pasaporte:</strong> Válido al momento de entrada.<br><a href="https://www.k-eta.go.kr" target="_blank">k-eta.go.kr</a></p></div>
-<div class="visa-card"><div class="passport">🇨🇺 Cuba → 🇰🇷 Korea</div><span class="status required">⛔ VISA REQUERIDA</span><h4>Necesita visa C-3</h4><p style="color:var(--text2);font-size:.9rem"><strong>Solución:</strong> Usar pasaporte 🇺🇸 USA para Korea.<br>Cuba NO tiene exención con Korea del Sur.</p></div>
-<div class="visa-card"><div class="passport">🇺🇸 USA → 🇹🇭 Tailandia</div><span class="status ok">✅ VISA FREE — 60 días</span><h4>Sin visa</h4><p style="color:var(--text2);font-size:.9rem"><strong>TDAC (obligatorio):</strong> <a href="https://tdac.immigration.go.th" target="_blank">tdac.immigration.go.th</a> — 72h antes.<br><strong>Pasaporte:</strong> 6+ meses validez.</p></div>
-<div class="visa-card"><div class="passport">🇨🇺 Cuba → 🇹🇭 Tailandia</div><span class="status ok">✅ VISA FREE — 60 días</span><h4>¡Cuba está en la lista!</h4><p style="color:var(--text2);font-size:.9rem">Cubanos también entran sin visa 60 días.<br>Mismo TDAC requerido. Cualquier pasaporte funciona.</p></div>
+<div class="visa-card"><div class="passport">🇺🇸 USA → 🇰🇷 Korea</div><span class="status ok">✅ VISA FREE 90d</span><p style="color:var(--text2);font-size:.9rem">K-ETA exento hasta dic 2026. <a href="https://www.k-eta.go.kr" target="_blank">k-eta.go.kr</a></p></div>
+<div class="visa-card"><div class="passport">🇨🇺 Cuba → 🇰🇷 Korea</div><span class="status required">⛔ VISA REQUERIDA</span><p style="color:var(--text2);font-size:.9rem"><strong>Solución:</strong> Usar pasaporte 🇺🇸 USA.</p></div>
+<div class="visa-card"><div class="passport">🇺🇸 USA → 🇹🇭 Thai</div><span class="status ok">✅ VISA FREE 60d</span><p style="color:var(--text2);font-size:.9rem"><strong>TDAC obligatorio:</strong> <a href="https://tdac.immigration.go.th" target="_blank">tdac.immigration.go.th</a> 72h antes. Pasaporte 6+ meses.</p></div>
+<div class="visa-card"><div class="passport">🇨🇺 Cuba → 🇹🇭 Thai</div><span class="status ok">✅ VISA FREE 60d</span><p style="color:var(--text2);font-size:.9rem">Cuba incluida en lista exención. Mismo TDAC.</p></div>
 </div>
 <div style="margin-top:2rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px">
-<h4>📋 Estrategia de pasaportes</h4>
-<p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Korea:</strong> Usar 🇺🇸 USA — libre 90 días, sin K-ETA en 2026.<br><strong>Tailandia:</strong> Cualquier pasaporte — ambos visa free 60 días.<br><strong>⚠️ TDAC obligatorio</strong> para Tailandia — gratis, 72h antes.</p>
+<h4>📋 Estrategia</h4><p style="color:var(--text2);font-size:.9rem;margin-top:.5rem"><strong>Korea:</strong> 🇺🇸 USA — libre 90d · <strong>Tailandia:</strong> Cualquiera — ambos free 60d · <strong>⚠️ TDAC 72h antes</strong></p>
 </div>
 </section>
 
-<!-- ESENCIALES -->
 <section id="esenciales">
-<h2 class="section-title">📱 Esenciales</h2>
-<p class="section-sub">Apps, pagos, clima, tips culturales</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">📱 Esenciales</h2><div class="divider mixed"></div>
 <div class="grid-3">
-<div class="essential-item"><div class="emoji">📱</div><h4>SIM / eSIM</h4><p><strong>Korea:</strong> eSIM Airalo/Holafly ~$12-18.<br><strong>Thai:</strong> SIM AIS/DTAC en aeropuerto ~$9, data ilimitada 15d.</p></div>
-<div class="essential-item"><div class="emoji">💳</div><h4>Pagos</h4><p><strong>Korea:</strong> Tarjetas casi todo. Apple/Google Pay OK.<br><strong>Thai:</strong> MÁS EFECTIVO. ATMs ₿220/retiro. Llevar $200-300 USD cash.</p></div>
-<div class="essential-item"><div class="emoji">🌡️</div><h4>Clima Sep</h4><p><strong>Korea:</strong> 20-28°C, otoño perfecto.<br><strong>Bangkok:</strong> 28-35°C, lluvia por la tarde.<br><strong>CM:</strong> 23-32°C. <strong>Krabi:</strong> 27-32°C, temporada baja.</p></div>
-<div class="essential-item"><div class="emoji">🔌</div><h4>Enchufes</h4><p><strong>Korea:</strong> Tipo C/F (europeo). NECESITAS adaptador.<br><strong>Thai:</strong> Tipo A/B/C. Americano funciona en mayoría.<br>💡 Adaptador universal ~$10.</p></div>
-<div class="essential-item"><div class="emoji">👕</div><h4>Empacar</h4><p>Ropa ligera, impermeable, zapatos cómodos, sandalias, ropa para templos (cubrir hombros/rodillas), adaptador, protector solar reef-safe.</p></div>
-<div class="essential-item"><div class="emoji">💊</div><h4>Salud</h4><p>Sin vacunas obligatorias. Recomendadas: Hep A/B, Tétano. No agua del grifo en Thai. Llevar Imodium.</p></div>
+<div class="ess"><div class="emoji">📱</div><h4>SIM/eSIM</h4><p><strong>Korea:</strong> eSIM Airalo ~$12-18 · <strong>Thai:</strong> SIM AIS/DTAC ~$9 aeropuerto</p></div>
+<div class="ess"><div class="emoji">💳</div><h4>Pagos</h4><p><strong>Korea:</strong> Tarjetas casi todo · <strong>Thai:</strong> Más efectivo. ATMs ₿220/retiro. Llevar $200-300 USD</p></div>
+<div class="ess"><div class="emoji">🌡️</div><h4>Clima Sep</h4><p><strong>Korea:</strong> 20-28°C perfecto · <strong>BKK:</strong> 28-35°C húmedo · <strong>CM:</strong> 23-32°C · <strong>Krabi:</strong> 27-32°C</p></div>
+<div class="ess"><div class="emoji">🔌</div><h4>Enchufes</h4><p><strong>Korea:</strong> C/F (europeo) NECESITAS adaptador · <strong>Thai:</strong> Americano funciona mayoría</p></div>
+<div class="ess"><div class="emoji">👕</div><h4>Empacar</h4><p>Ropa ligera, impermeable, zapatos cómodos, sandalias, ropa templos, adaptador, protector reef-safe</p></div>
+<div class="ess"><div class="emoji">💊</div><h4>Salud</h4><p>Recomendado: Hep A/B, Tétano. No agua grifo Thai. Llevar Imodium.</p></div>
 </div>
-<h3 style="margin-top:3rem;margin-bottom:1.5rem">🎭 Tips Culturales</h3>
+<h3 style="margin-top:3rem;margin-bottom:1.5rem">🎭 Cultura</h3>
 <div class="grid-2">
-<div class="collapsible"><div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')"><h4>🇰🇷 Etiqueta Korea</h4><span class="icon">▼</span></div>
-<div class="collapsible-body"><div class="inner"><strong>NO propina</strong> — puede ofender.<br><strong>Recibir con DOS manos</strong> — especialmente de mayores.<br><strong>Silencio en metro.</strong><br><strong>Quitarse zapatos</strong> al entrar casas/restaurantes/templos.<br><strong>Soju:</strong> No servirse uno mismo. Girar cara al tomar frente a mayores.</div></div></div>
-<div class="collapsible"><div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')"><h4>🇹🇭 Etiqueta Tailandia</h4><span class="icon">▼</span></div>
-<div class="collapsible-body"><div class="inner"><strong>NO tocar cabeza</strong> — sagrada.<br><strong>NO apuntar con pies</strong> — parte más baja.<br><strong>Respetar monarquía</strong> — lèse-majesté es ley seria. NUNCA pisar billete.<br><strong>Wai</strong> — saludo manos juntas. Devolver siempre.<br><strong>Templos:</strong> Cubrir hombros y rodillas.<br><strong>Sonreír</strong> — "Land of Smiles".</div></div></div>
+<div class="collapsible"><div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')"><h4>🇰🇷 Korea</h4><span class="icon">▼</span></div><div class="collapsible-body"><div class="inner">NO propina · Recibir con DOS manos · Silencio en metro · Quitarse zapatos · Soju: no servirse, girar cara frente mayores</div></div></div>
+<div class="collapsible"><div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')"><h4>🇹🇭 Tailandia</h4><span class="icon">▼</span></div><div class="collapsible-body"><div class="inner">NO tocar cabeza · NO pies apuntando · Respetar monarquía · Wai (saludo) · Templos: cubrir hombros/rodillas · Sonreír = resuelve todo</div></div></div>
 </div>
 </section>
 
-<!-- HIDDEN GEMS -->
 <section id="gems">
-<h2 class="section-title">💎 Hidden Gems</h2>
-<p class="section-sub">Lo que la mayoría NO conoce</p>
-<div class="divider mixed"></div>
+<h2 class="section-title">💎 Hidden Gems</h2><p class="section-sub">Lo que mayoría NO conoce</p><div class="divider mixed"></div>
 <h3 style="margin-bottom:1rem;color:var(--korea)">🇰🇷 Korea</h3>
 <div class="grid-3" style="margin-bottom:3rem">
-<div class="gem"><h4>🏔️ Inwangsan Trail</h4><p>Seúl. Muralla antigua, vista panorámica secreta. 1.5h. Pocos turistas.</p></div>
-<div class="gem"><h4>🌙 Naksan Park</h4><p>Seúl. Muralla iluminada de noche. Vista nocturna espectacular.</p></div>
-<div class="gem"><h4>🏝️ Seonyudo Park</h4><p>Seúl. Isla en río Han. Parque ecológico casi sin turistas.</p></div>
-<div class="gem"><h4>🍸 Euljiro Bars</h4><p>Seúl. Industrial de día, speakeasy de noche. Puertas sin señal.</p></div>
-<div class="gem"><h4>🏖️ L7 Myeongdong</h4><p>Seúl. Pool bar rooftop gratis. Vista N Seoul Tower.</p></div>
-<div class="gem"><h4>🎨 Huinnyeoul Village</h4><p>Busan. Costero artístico. Más auténtico que Gamcheon.</p></div>
-<div class="gem"><h4>🏔️ Taejongdae</h4><p>Busan. Acantilados y faro. Menos turístico.</p></div>
-<div class="gem"><h4>🛒 Gukje Market</h4><p>Busan. El mercado más auténtico y local.</p></div>
+<div class="gem"><h4>🏔️ Inwangsan Trail</h4><p>Seúl. Muralla antigua, vista secreta. 1.5h.</p></div>
+<div class="gem"><h4>🌙 Naksan Park</h4><p>Seúl. Muralla iluminada noche.</p></div>
+<div class="gem"><h4>🏝️ Seonyudo Park</h4><p>Seúl. Isla río Han sin turistas.</p></div>
+<div class="gem"><h4>🍸 Euljiro Bars</h4><p>Seúl. Speakeasy industriales.</p></div>
+<div class="gem"><h4>🏖️ L7 Rooftop</h4><p>Seúl. Pool bar gratis con vista.</p></div>
+<div class="gem"><h4>🎨 Huinnyeoul</h4><p>Busan. Costero artístico.</p></div>
+<div class="gem"><h4>🏔️ Taejongdae</h4><p>Busan. Acantilados y faro.</p></div>
+<div class="gem"><h4>🛒 Gukje Market</h4><p>Busan. Mercado más auténtico.</p></div>
 </div>
 <h3 style="margin-bottom:1rem;color:var(--thai)">🇹🇭 Tailandia</h3>
 <div class="grid-3">
-<div class="gem"><h4>🎨 Talat Noi</h4><p>Bangkok. Arte callejero Old Bangkok. El Wynwood tailandés.</p></div>
-<div class="gem"><h4>🌿 Bang Krachao</h4><p>Bangkok. Isla selvática. Ferry + bici. CERO turistas.</p></div>
-<div class="gem"><h4>🌺 Pak Khlong Talat</h4><p>Bangkok. Mercado flores 24h. Ir 3-4 AM para la experiencia real.</p></div>
-<div class="gem"><h4>🍜 Nang Loeng Market</h4><p>Bangkok. 120+ años. Cero turistas. Comida auténtica.</p></div>
-<div class="gem"><h4>🗣️ Monk Chat</h4><p>Chiang Mai. Hablar con monjes budistas. Gratis. Transformador.</p></div>
-<div class="gem"><h4>🌊 Wat Umong</h4><p>Chiang Mai. Túneles subterráneos en bosque. Místico.</p></div>
-<div class="gem"><h4>🏔️ Huay Tung Tao</h4><p>Chiang Mai. Cabañas bambú sobre agua. Khao Soi con vistas.</p></div>
-<div class="gem"><h4>🎭 Wiang Kum Kam</h4><p>Chiang Mai. Ciudad sumergida siglo XIII. Bici, sin nadie.</p></div>
-<div class="gem"><h4>♨️ Khlong Thom Springs</h4><p>Krabi. Aguas termales en jungla. Relajación total.</p></div>
-<div class="gem"><h4>🐚 Shell Fossil Beach</h4><p>Krabi. Fósiles 75 millones de años. Casi nadie va.</p></div>
-<div class="gem"><h4>🌿 Tha Pom Klong Song Nam</h4><p>Krabi. Manglar cristalino. Kayak entre raíces.</p></div>
-<div class="gem"><h4>🏔️ Tab Kak Hang Nak</h4><p>Krabi. Hike 4km. Viewpoint panorámico de toda la costa.</p></div>
+<div class="gem"><h4>🎨 Talat Noi</h4><p>BKK. Arte callejero Old Bangkok.</p></div>
+<div class="gem"><h4>🌿 Bang Krachao</h4><p>BKK. Isla selvática en bici.</p></div>
+<div class="gem"><h4>🌺 Pak Khlong Talat</h4><p>BKK. Mercado flores 3AM.</p></div>
+<div class="gem"><h4>🗣️ Monk Chat</h4><p>CM. Hablar con monjes. Gratis.</p></div>
+<div class="gem"><h4>🌊 Wat Umong</h4><p>CM. Túneles en bosque.</p></div>
+<div class="gem"><h4>🏔️ Huay Tung Tao</h4><p>CM. Cabañas bambú agua.</p></div>
+<div class="gem"><h4>🎭 Wiang Kum Kam</h4><p>CM. Ciudad sumergida XIII.</p></div>
+<div class="gem"><h4>♨️ Hot Springs</h4><p>Krabi. Termales en jungla.</p></div>
+<div class="gem"><h4>🐚 Shell Fossil Beach</h4><p>Krabi. Fósiles 75M años.</p></div>
+<div class="gem"><h4>🌿 Tha Pom Mangroves</h4><p>Krabi. Kayak manglar cristalino.</p></div>
+<div class="gem"><h4>🏔️ Tab Kak Viewpoint</h4><p>Krabi. Hike 4km vista costa.</p></div>
 </div>
 </section>
 
 <footer>
-<p>🌏 Aventura Asia 2026 — Korea del Sur + Tailandia · Hecho con ❤️ para Oscar · Feb 2026</p>
-<p style="margin-top:.5rem;font-size:.75rem">Precios sujetos a cambio. Verificar antes de reservar. ¡Buen viaje! 🎌🇹🇭</p>
+<p>🌏 Aventura Asia 2026 — Korea + Tailandia · Hecho con ❤️ para Oscar · Feb 2026</p>
+<p style="margin-top:.5rem;font-size:.75rem">Precios sujetos a cambio. ¡Buen viaje! 🎌🇹🇭</p>
 </footer>
 
 <script>
-document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const t=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(t).classList.add('active')})});
-const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:.1});
-document.querySelectorAll('.animate').forEach(el=>obs.observe(el));
-
+document.querySelectorAll('.tab-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tab;document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(t).classList.add('active')})});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.animate').forEach(x=>obs.observe(x));
 const map=L.map('map',{scrollWheelZoom:false}).setView([20,110],4);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB © OSM',maxZoom:19}).addTo(map);
 function ic(c){return L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:'+c+';border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px '+c+'88"></div>',iconSize:[14,14],iconAnchor:[7,7]})}
-const P=[
-[37.5665,126.978,'Seúl','#e74c3c','Días 1-4 · Palacios, DMZ, mercados'],
-[37.5796,126.977,'Gyeongbokgung','#e74c3c','Palacio principal · Gratis con hanbok'],
-[37.5826,126.985,'Bukchon Hanok','#e74c3c','Casas tradicionales · Ir temprano'],
-[37.571,126.999,'Gwangjang Market','#e74c3c','Mercado antiguo · Mayak gimbap'],
-[37.5512,126.988,'N Seoul Tower','#e74c3c','Vista 360° · Teleférico'],
-[37.5563,126.924,'Hongdae','#e74c3c','Vida nocturna · Noraebang'],
-[37.5716,126.986,'Ikseon-dong','#e74c3c','Hanok alley hipster'],
-[37.576,126.967,'Inwangsan 💎','#e74c3c','Vista panorámica secreta'],
-[37.5713,126.992,'Euljiro 💎','#e74c3c','Bares ocultos industriales'],
-[35.8714,128.601,'Daegu','#ff6b6b','Días 4-5 · Comida picante'],
-[35.8684,128.581,'Seomun Market','#ff6b6b','Mercado nocturno'],
-[35.829,128.599,'Apsan Cable Car','#ff6b6b','Vista panorámica'],
-[35.802,128.099,'Haeinsa Temple','#ff6b6b','UNESCO · Tripitaka'],
-[35.1796,129.076,'Busan','#ffa07a','Días 6-7 · Playas, templos'],
-[35.1884,129.223,'Haedong Yonggungsa','#ffa07a','Templo costero · Gratis'],
-[35.097,129.031,'Jagalchi Market','#ffa07a','Sashimi fresco'],
-[35.098,129.01,'Gamcheon Village','#ffa07a','Santorini de Korea'],
-[35.153,129.119,'Gwangalli Beach','#ffa07a','Puente iluminado'],
-[35.052,129.085,'Taejongdae 💎','#ffa07a','Acantilados y faro'],
-[13.7563,100.502,'Bangkok','#f39c12','Días 8-10,18 · Templos, street food'],
-[13.751,100.493,'Grand Palace','#f39c12','₿500 · Dress code'],
-[13.747,100.493,'Wat Pho','#f39c12','Buda reclinado 46m'],
-[13.744,100.489,'Wat Arun','#f39c12','Templo del Amanecer'],
-[13.738,100.51,'Yaowarat','#f39c12','Street food capital'],
-[13.763,100.505,'Wat Saket 💎','#f39c12','Vista 360° sin multitudes'],
-[13.73,100.505,'Talat Noi 💎','#f39c12','Arte callejero Old Bangkok'],
-[13.685,100.58,'Bang Krachao 💎','#f39c12','Isla selvática'],
-[13.8,100.553,'Chatuchak','#f39c12','15,000+ puestos'],
-[18.7883,98.985,'Chiang Mai','#3498db','Días 11-14 · Templos, cocina'],
-[18.805,98.922,'Doi Suthep','#3498db','Templo dorado · 306 escalones'],
-[18.788,98.987,'Wat Chedi Luang','#3498db','Monk Chat · Ruinas'],
-[18.773,98.949,'Wat Umong 💎','#3498db','Túneles en bosque'],
-[18.853,98.942,'Huay Tung Tao 💎','#3498db','Cabañas bambú'],
-[18.91,99.373,'Sticky Waterfall','#3498db','Cascada escalable'],
-[8.0863,98.906,'Krabi/Ao Nang','#00d4aa','Días 14-17 · Playas, islas'],
-[8.014,98.837,'Railay Beach','#00d4aa','Paraíso entre acantilados'],
-[8.118,98.923,'Tiger Cave','#00d4aa','1,260 escalones · GRATIS'],
-[7.922,99.259,'Emerald Pool','#00d4aa','Piscinas naturales'],
-[7.93,99.215,'Hot Springs 💎','#00d4aa','Aguas termales jungla'],
-];
-P.forEach(p=>{L.marker([p[0],p[1]],{icon:ic(p[3])}).addTo(map).bindPopup('<div style="font-family:DM Sans,sans-serif"><strong>'+p[2]+'</strong><br><span style="color:#999;font-size:12px">'+p[4]+'</span></div>')});
-L.polyline([[37.57,126.98],[35.87,128.6],[35.18,129.08]],{color:'#e74c3c',weight:2,dashArray:'8,8',opacity:.6}).addTo(map);
-L.polyline([[13.76,100.5],[18.79,98.99],[8.09,98.91],[13.76,100.5]],{color:'#f39c12',weight:2,dashArray:'8,8',opacity:.6}).addTo(map);
+const P=[[37.5665,126.978,'Seúl','#e74c3c','Días 1-4'],[37.5796,126.977,'Gyeongbokgung','#e74c3c','Palacio'],[37.571,126.999,'Gwangjang Market','#e74c3c','Mercado antiguo'],[37.5512,126.988,'N Seoul Tower','#e74c3c','Vista 360°'],[37.5563,126.924,'Hongdae','#e74c3c','Nightlife'],[37.576,126.967,'Inwangsan 💎','#e74c3c','Vista secreta'],[35.1796,129.076,'Busan','#ffa07a','Días 4-5'],[35.1884,129.223,'Haedong Yonggungsa','#ffa07a','Templo costero'],[35.097,129.031,'Jagalchi','#ffa07a','Sashimi'],[35.098,129.01,'Gamcheon','#ffa07a','Santorini Korea'],[35.153,129.119,'Gwangalli','#ffa07a','Puente noche'],[35.052,129.085,'Taejongdae 💎','#ffa07a','Acantilados'],[13.7563,100.502,'Bangkok','#f39c12','Días 6-8,16'],[13.751,100.493,'Grand Palace','#f39c12','₿500'],[13.747,100.493,'Wat Pho','#f39c12','Buda 46m'],[13.744,100.489,'Wat Arun','#f39c12','Amanecer'],[13.738,100.51,'Yaowarat','#f39c12','Street food'],[13.763,100.505,'Wat Saket 💎','#f39c12','Vista 360°'],[13.73,100.505,'Talat Noi 💎','#f39c12','Arte callejero'],[18.7883,98.985,'Chiang Mai','#3498db','Días 9-12'],[18.805,98.922,'Doi Suthep','#3498db','Templo dorado'],[18.788,98.987,'Wat Chedi Luang','#3498db','Monk Chat'],[18.773,98.949,'Wat Umong 💎','#3498db','Túneles'],[18.853,98.942,'Huay Tung Tao 💎','#3498db','Cabañas'],[8.0863,98.906,'Krabi','#00d4aa','Días 12-15'],[8.014,98.837,'Railay','#00d4aa','Paraíso'],[8.118,98.923,'Tiger Cave','#00d4aa','1260 escalones'],[7.922,99.259,'Emerald Pool','#00d4aa','Piscinas']];
+P.forEach(p=>{L.marker([p[0],p[1]],{icon:ic(p[3])}).addTo(map).bindPopup('<div style="font-family:DM Sans,sans-serif"><b>'+p[2]+'</b><br><span style="color:#999;font-size:12px">'+p[4]+'</span></div>')});
+L.polyline([[37.57,126.98],[35.18,129.08]],{color:'#e74c3c',weight:2,dashArray:'8,8',opacity:.6}).addTo(map);
 L.polyline([[35.18,129.08],[13.76,100.5]],{color:'#666',weight:2,dashArray:'12,8',opacity:.4}).addTo(map);
+L.polyline([[13.76,100.5],[18.79,98.99],[8.09,98.91],[13.76,100.5]],{color:'#f39c12',weight:2,dashArray:'8,8',opacity:.6}).addTo(map);
 const secs=document.querySelectorAll('section[id]'),navs=document.querySelectorAll('nav a');
 window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-100)c=s.id});navs.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+c)a.classList.add('active')})});
 </script>
+
 </body>
 </html>
